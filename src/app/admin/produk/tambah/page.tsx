@@ -232,6 +232,7 @@ export default function AddProductPage() {
               <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6">
                 {images.map((image, index) => (
                   <div key={index} className="group relative aspect-square">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={URL.createObjectURL(image)}
                       alt={`Preview ${index + 1}`}

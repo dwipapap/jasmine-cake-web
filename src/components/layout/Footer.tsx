@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, MapPin, Instagram } from "lucide-react";
+import { Phone, Instagram } from "lucide-react";
 import { WHATSAPP_NUMBER } from "@/lib/utils";
 
 export function Footer() {

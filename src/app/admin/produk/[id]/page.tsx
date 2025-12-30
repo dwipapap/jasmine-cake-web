@@ -3,6 +3,7 @@
 import { useState, useEffect, use, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -292,10 +293,12 @@ export default function EditProductPage({ params }: EditProductPageProps) {
                 <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6">
                   {existingImages.map((image) => (
                     <div key={image.id} className="group relative aspect-square">
-                      <img
+                      <Image
                         src={image.image_url}
                         alt="Product"
-                        className="h-full w-full rounded-lg object-cover"
+                        fill
+                        className="rounded-lg object-cover"
+                        sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 16vw"
                       />
                       <button
                         type="button"
@@ -347,6 +350,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
                 <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6">
                   {newImages.map((image, index) => (
                     <div key={index} className="group relative aspect-square">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={URL.createObjectURL(image)}
                         alt={`Preview ${index + 1}`}
