@@ -17,7 +17,7 @@ interface CategoryCardProps {
   productCount?: number;
 }
 
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, React.ElementType> = {
   "kue-kering": Cookie,
   "kue-basah": Cake,
   "nasi-kotak": UtensilsCrossed,
@@ -65,7 +65,7 @@ export function CategoryCard({
           )}
         </div>
 
-        <div className={`absolute right-4 top-4 z-10 flex h-12 w-12 items-center justify-center rounded-full backdrop-blur-md shadow-sm transition-transform duration-300 group-hover:scale-110 ${hasImage ? 'bg-white/20 text-white border border-white/30' : 'bg-white text-burgundy-700 shadow-md border border-burgundy-100'}`}>
+        <div className={`absolute right-4 top-4 z-10 flex h-12 w-12 items-center justify-center rounded-full shadow-sm transition-transform duration-300 group-hover:scale-110 ${hasImage ? 'bg-white/20 text-white border border-white/30' : 'bg-white text-burgundy-700 shadow-md border border-burgundy-100'}`}>
            <Icon className="h-6 w-6" strokeWidth={1.5} />
         </div>
 

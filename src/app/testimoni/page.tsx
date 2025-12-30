@@ -42,8 +42,8 @@ export default async function TestimoniPage() {
   return (
     <div className="min-h-screen bg-cream-50">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-20 top-20 h-96 w-96 rounded-full bg-burgundy-100/40 blur-3xl" />
-        <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-gold/10 blur-3xl" />
+        <div className="absolute -left-20 top-20 h-96 w-96 rounded-full bg-gradient-to-br from-burgundy-100/40 to-transparent opacity-60" />
+        <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-gradient-to-bl from-gold/10 to-transparent opacity-60" />
       </div>
 
       <div className="relative container mx-auto px-4 pb-24 pt-16">
@@ -67,7 +67,7 @@ export default async function TestimoniPage() {
             <h2 className="mb-8 font-serif text-2xl font-bold text-burgundy-900 md:text-3xl">
               Testimoni Pilihan
             </h2>
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {featuredTestimonials.map((testimonial) => (
                 <TestimonialCard
                   key={testimonial.id}
@@ -84,7 +84,7 @@ export default async function TestimoniPage() {
             <h2 className="mb-8 font-serif text-2xl font-bold text-burgundy-900 md:text-3xl">
               Testimoni Lainnya
             </h2>
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {regularTestimonials.map((testimonial) => (
                 <TestimonialCard
                   key={testimonial.id}
@@ -96,7 +96,7 @@ export default async function TestimoniPage() {
         )}
 
         {typedTestimonials.length === 0 && (
-          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-3xl border border-dashed border-burgundy-200 bg-white/50 p-12 text-center backdrop-blur-sm">
+          <div className="flex min-h-[400px] flex-col items-center justify-center rounded-3xl border border-dashed border-burgundy-200 bg-white/50 p-12 text-center shadow-sm">
             <div className="mb-6 rounded-full bg-burgundy-50 p-6">
               <Quote className="h-12 w-12 text-burgundy-300" />
             </div>
@@ -121,8 +121,8 @@ export default async function TestimoniPage() {
         )}
 
         <section className="relative overflow-hidden rounded-3xl bg-burgundy-800 p-8 text-center text-white shadow-xl md:p-12 lg:p-16">
-          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-burgundy-600/30 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-gold/10 blur-3xl" />
+          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-bl from-burgundy-600/30 to-transparent opacity-60" />
+          <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-gradient-to-tr from-gold/10 to-transparent opacity-60" />
 
           <div className="relative">
             <h2 className="mb-4 font-serif text-2xl font-bold md:text-3xl lg:text-4xl">

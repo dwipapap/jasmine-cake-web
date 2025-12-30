@@ -45,8 +45,8 @@ export default function TentangPage() {
   return (
     <div className="min-h-screen bg-cream-50">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-20 top-20 h-96 w-96 rounded-full bg-burgundy-100/40 blur-3xl" />
-        <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-gold/10 blur-3xl" />
+        <div className="absolute -left-20 top-20 h-96 w-96 rounded-full bg-gradient-to-br from-burgundy-100/40 to-transparent opacity-60" />
+        <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-gradient-to-bl from-gold/10 to-transparent opacity-60" />
       </div>
 
       <div className="relative container mx-auto px-4 py-16 md:py-24">
@@ -80,7 +80,7 @@ export default function TentangPage() {
               return (
                 <div
                   key={feature.title}
-                  className="group relative overflow-hidden rounded-2xl border border-burgundy-100 bg-white/60 p-8 text-center backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-burgundy-100/50"
+                  className="group relative overflow-hidden rounded-2xl border border-burgundy-100 bg-white/90 p-8 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-burgundy-100/50"
                 >
                   <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-burgundy-50 transition-colors duration-300 group-hover:bg-burgundy-100">
                     <Icon className="h-7 w-7 text-burgundy-700" />
@@ -102,7 +102,7 @@ export default function TentangPage() {
         <section className="mb-20">
           <div className="grid gap-8 lg:grid-cols-2">
             <div className="relative overflow-hidden rounded-3xl border border-burgundy-100 bg-white p-8 md:p-10 lg:p-12 shadow-sm">
-              <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-burgundy-50/50 blur-3xl" />
+              <div className="absolute top-0 right-0 -mr-16 -mt-16 h-64 w-64 rounded-full bg-gradient-to-bl from-burgundy-50/50 to-transparent opacity-60" />
 
               <div className="relative">
                 <h2 className="mb-6 font-serif text-3xl font-bold text-burgundy-900">
@@ -219,8 +219,8 @@ export default function TentangPage() {
         </section>
 
         <section className="relative overflow-hidden rounded-3xl bg-burgundy-800 p-8 text-center text-white shadow-xl md:p-12 lg:p-16">
-          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-burgundy-600/30 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-gold/10 blur-3xl" />
+          <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-bl from-burgundy-600/30 to-transparent opacity-60" />
+          <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-gradient-to-tr from-gold/10 to-transparent opacity-60" />
 
           <div className="relative">
             <h2 className="mb-4 font-serif text-2xl font-bold md:text-3xl lg:text-4xl">

@@ -115,23 +115,23 @@ export default function TambahTestimoniPage() {
   return (
     <div className="min-h-screen bg-cream-50 relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-20 top-20 h-96 w-96 rounded-full bg-burgundy-100/40 blur-3xl animate-pulse delay-700" />
-        <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-gold/10 blur-3xl animate-pulse" />
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-cream-100/50 blur-3xl -z-10" />
+        <div className="absolute -left-20 top-20 h-96 w-96 rounded-full bg-gradient-to-br from-burgundy-100/40 to-transparent opacity-60 animate-pulse delay-700" />
+        <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-gradient-to-bl from-gold/10 to-transparent opacity-60 animate-pulse" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-gradient-to-t from-cream-100/50 to-transparent opacity-60 -z-10" />
       </div>
 
       <div className="container relative mx-auto px-4 py-16 md:py-24">
         <div className="mx-auto max-w-lg">
           <Link
             href="/testimoni"
-            className="group mb-8 inline-flex items-center gap-2 rounded-full bg-white/50 px-4 py-2 text-sm font-medium text-burgundy-700 backdrop-blur-sm transition-all hover:bg-white hover:text-burgundy-900 hover:shadow-md"
+            className="group mb-8 inline-flex items-center gap-2 rounded-full bg-white/50 px-4 py-2 text-sm font-medium text-burgundy-700 shadow-sm transition-all hover:bg-white hover:text-burgundy-900 hover:shadow-md"
           >
             <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
             Kembali ke Testimoni
           </Link>
 
           {isSuccess ? (
-            <Card className="animate-in fade-in zoom-in-95 duration-500 mx-auto border-none bg-white/80 p-8 text-center shadow-2xl backdrop-blur-md">
+            <Card className="animate-in fade-in zoom-in-95 duration-500 mx-auto border-none bg-white/90 p-8 text-center shadow-2xl">
               <div className="mb-6 flex justify-center">
                 <div className="relative rounded-full bg-green-100/50 p-4 ring-8 ring-green-50">
                   <CheckCircle className="h-12 w-12 text-green-600" />
@@ -180,8 +180,10 @@ export default function TambahTestimoniPage() {
                 </p>
               </div>
 
-              <Card className="border-none bg-white/80 p-6 shadow-2xl backdrop-blur-md md:p-10">
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <Card className="border-none bg-white/90 p-6 shadow-2xl md:p-10">
+                <form onSubmit={(e) => {
+                  handleSubmit(onSubmit)(e);
+                }} className="space-y-6">
                   {error && (
                     <div className="animate-in slide-in-from-top-2 flex items-center gap-2 rounded-xl bg-red-50 p-4 text-sm font-medium text-red-600 border border-red-100">
                       <div className="h-2 w-2 rounded-full bg-red-600" />
@@ -242,7 +244,7 @@ export default function TambahTestimoniPage() {
                           <button
                             type="button"
                             onClick={removeImage}
-                            className="absolute right-4 top-4 rounded-full bg-white/90 p-2 text-burgundy-900 shadow-sm backdrop-blur-sm transition-all hover:bg-red-50 hover:text-red-600 hover:shadow-md hover:scale-110"
+                            className="absolute right-4 top-4 rounded-full bg-white/90 p-2 text-burgundy-900 shadow-sm transition-all hover:bg-red-50 hover:text-red-600 hover:shadow-md hover:scale-110"
                             title="Hapus foto"
                           >
                             <X className="h-4 w-4" />

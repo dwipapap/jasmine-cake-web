@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -18,7 +17,7 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-cream-200/50 bg-cream-50/70 backdrop-blur-xl supports-[backdrop-filter]:bg-cream-50/60 shadow-sm">
+    <header className="sticky top-0 z-50 w-full border-b border-cream-200/50 bg-cream-50/95 shadow-sm">
       <div className="container mx-auto flex h-20 items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="group flex items-center gap-3">
           <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-burgundy-700 to-burgundy-800 shadow-lg shadow-burgundy-900/10 transition-all duration-300 group-hover:shadow-xl group-hover:shadow-burgundy-900/20 group-hover:-translate-y-0.5">
@@ -61,7 +60,7 @@ export function Navbar() {
 
       <div
         className={cn(
-          "overflow-hidden border-t border-cream-200/50 bg-cream-50/95 backdrop-blur-xl md:hidden transition-all duration-300 ease-in-out",
+          "overflow-hidden border-t border-cream-200/50 bg-cream-50/95 md:hidden transition-all duration-300 ease-in-out",
           isOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
         )}
       >

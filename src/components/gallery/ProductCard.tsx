@@ -6,9 +6,10 @@ import type { ProductWithImages } from "@/lib/supabase/types";
 
 interface ProductCardProps {
   product: ProductWithImages;
+  priority?: boolean;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, priority = false }: ProductCardProps) {
   const primaryImage =
     product.product_images.find((img) => img.is_primary) ||
     product.product_images[0];
@@ -26,6 +27,7 @@ export function ProductCard({ product }: ProductCardProps) {
                 src={primaryImage.image_url}
                 alt={product.name}
                 fill
+                priority={priority}
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
               />
@@ -48,9 +50,9 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {product.categories && (
           <div className="absolute left-4 top-4 z-10">
-            <span className={`inline-flex items-center rounded-full backdrop-blur-md px-3 py-1 text-xs font-medium shadow-sm ring-1 transition-all duration-300 ${
+            <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium shadow-sm ring-1 transition-all duration-300 ${
               hasImage 
-                ? 'bg-white/20 text-white ring-white/30' 
+                ? 'bg-white/90 text-burgundy-900 ring-white/30' 
                 : 'bg-white/80 text-burgundy-700 ring-burgundy-100'
             }`}>
               {product.categories.name}

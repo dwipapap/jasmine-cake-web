@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { CategoryTabs, ProductCard } from "@/components/gallery";
 import { createClient } from "@/lib/supabase/server";
 import type { ProductWithImages } from "@/lib/supabase/types";
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
 export default async function GaleriPage() {
   const supabase = await createClient();
 
-  const { data: products, error } = await supabase
+  const { data: products } = await supabase
     .from("products")
     .select(
       `
@@ -31,8 +30,8 @@ export default async function GaleriPage() {
   return (
     <div className="min-h-screen bg-cream-50">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-20 top-20 h-96 w-96 rounded-full bg-burgundy-100/40 blur-3xl" />
-        <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-gold/10 blur-3xl" />
+        <div className="absolute -left-20 top-20 h-96 w-96 rounded-full bg-gradient-to-br from-burgundy-100/40 to-transparent opacity-60" />
+        <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-gradient-to-bl from-gold/10 to-transparent opacity-60" />
       </div>
 
       <div className="relative pb-24 pt-16">
@@ -54,13 +53,17 @@ export default async function GaleriPage() {
           </div>
 
           {typedProducts.length > 0 ? (
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {typedProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {typedProducts.map((product, index) => (
+                <ProductCard 
+                  key={product.id} 
+                  product={product} 
+                  priority={index < 4}
+                />
               ))}
             </div>
           ) : (
-            <div className="flex min-h-[400px] flex-col items-center justify-center rounded-2xl border border-dashed border-burgundy-200 bg-white/50 p-12 text-center backdrop-blur-sm">
+            <div className="flex min-h-[400px] flex-col items-center justify-center rounded-2xl border border-dashed border-burgundy-200 bg-white/50 p-12 text-center shadow-sm">
               <div className="mb-6 rounded-full bg-burgundy-50 p-6">
                 <PackageOpen className="h-12 w-12 text-burgundy-300" />
               </div>

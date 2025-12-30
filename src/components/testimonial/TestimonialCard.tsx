@@ -40,7 +40,7 @@ export function TestimonialCard({ testimonial, featured = false }: TestimonialCa
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60" />
 
           {testimonial.products && (
-            <div className="absolute left-4 top-4 overflow-hidden rounded-full border border-white/20 bg-white/20 backdrop-blur-md shadow-sm">
+            <div className="absolute left-4 top-4 overflow-hidden rounded-full border border-white/20 bg-white/90 shadow-sm">
               <div className="px-3 py-1.5 text-xs font-semibold tracking-wide text-white uppercase">
                  {testimonial.products.name}
               </div>

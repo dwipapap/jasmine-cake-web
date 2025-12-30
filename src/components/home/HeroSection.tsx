@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
@@ -9,9 +7,9 @@ export function HeroSection() {
   return (
     <section className="relative flex min-h-[90vh] items-center justify-center overflow-hidden bg-cream-50 pt-20 pb-32">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-[20%] -left-[10%] h-[70%] w-[70%] rounded-full bg-burgundy-100/30 blur-[120px]" />
-        <div className="absolute top-[20%] -right-[10%] h-[60%] w-[60%] rounded-full bg-gold/10 blur-[100px]" />
-        <div className="absolute -bottom-[20%] left-[20%] h-[60%] w-[80%] rounded-full bg-cream-200/60 blur-[120px]" />
+        <div className="absolute -top-[20%] -left-[10%] h-[70%] w-[70%] rounded-full bg-gradient-to-br from-burgundy-100/30 to-transparent" />
+        <div className="absolute top-[20%] -right-[10%] h-[60%] w-[60%] rounded-full bg-gradient-to-bl from-gold/10 to-transparent" />
+        <div className="absolute -bottom-[20%] left-[20%] h-[60%] w-[80%] rounded-full bg-gradient-to-t from-cream-200/60 to-transparent" />
         
         <div 
           className="absolute inset-0 opacity-[0.4] mix-blend-overlay"
@@ -29,7 +27,7 @@ export function HeroSection() {
       </div>
 
       <div className="container relative z-10 mx-auto px-4 text-center">
-        <div className="mb-8 inline-flex animate-fade-in items-center gap-3 rounded-full border border-burgundy-200/40 bg-white/40 px-6 py-2 backdrop-blur-md">
+        <div className="mb-8 inline-flex animate-fade-in items-center gap-3 rounded-full border border-burgundy-200/40 bg-white/90 px-6 py-2 shadow-sm">
           <span className="h-1.5 w-1.5 rounded-full bg-burgundy-600" />
           <span className="text-xs font-bold uppercase tracking-[0.2em] text-burgundy-800">
             Homemade dengan Cinta
@@ -95,29 +93,6 @@ export function HeroSection() {
           ></path>
         </svg>
       </div>
-
-      <style jsx>{`
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        @keyframes fade-in-up {
-          from { opacity: 0; transform: translateY(20px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes float-slow {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-        }
-        @keyframes float-slower {
-          0%, 100% { transform: translateY(0) rotate(45deg); }
-          50% { transform: translateY(-30px) rotate(35deg); }
-        }
-        .animate-fade-in { animation: fade-in 1s ease-out forwards; }
-        .animate-fade-in-up { opacity: 0; animation: fade-in-up 1s ease-out forwards; }
-        .animate-float-slow { animation: float-slow 8s ease-in-out infinite; }
-        .animate-float-slower { animation: float-slower 10s ease-in-out infinite; }
-      `}</style>
     </section>
   );
 }
