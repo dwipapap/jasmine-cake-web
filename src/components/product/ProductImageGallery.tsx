@@ -2,10 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Lightbox from "yet-another-react-lightbox";
+import dynamic from "next/dynamic";
 import "yet-another-react-lightbox/styles.css";
 import type { ProductImage } from "@/lib/supabase/types";
 import { cn } from "@/lib/utils";
+
+const Lightbox = dynamic(() => import("yet-another-react-lightbox"), {
+  ssr: false,
+});
 
 interface ProductImageGalleryProps {
   images: ProductImage[];
