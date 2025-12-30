@@ -1,26 +1,158 @@
 @import "tailwindcss";
 
+/* ============================================
+   JASMINE CAKE AND COOKIES - BURGUNDY + CREAM THEME
+   ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Burgundy palette */
+  --burgundy-50: #fdf2f4;
+  --burgundy-100: #f2e1ea;
+  --burgundy-200: #e5c3d5;
+  --burgundy-300: #d4739a;
+  --burgundy-400: #c74a8d;
+  --burgundy-500: #a8467b;
+  --burgundy-600: #8b3a62;
+  --burgundy-700: #6d2d4d;
+  --burgundy-800: #5a1f3d;
+  --burgundy-900: #4a1a33;
+  
+  /* Cream/Broken White palette */
+  --cream-50: #fefdfb;
+  --cream-100: #faf8f3;
+  --cream-200: #f5f2ed;
+  --cream-300: #ede8e0;
+  --cream-400: #e0d9ce;
+  --cream-500: #d1c9bd;
+  
+  /* Accent colors */
+  --gold: #d4af37;
+  --warm-gray: #a88099;
+
+  /* Theme variables */
+  --background: var(--cream-100);
+  --foreground: var(--burgundy-800);
+  
+  --card: var(--cream-50);
+  --card-foreground: var(--burgundy-800);
+  
+  --primary: var(--burgundy-600);
+  --primary-foreground: var(--cream-50);
+  
+  --secondary: var(--cream-300);
+  --secondary-foreground: var(--burgundy-800);
+  
+  --muted: var(--cream-400);
+  --muted-foreground: var(--warm-gray);
+  
+  --accent: var(--gold);
+  --accent-foreground: var(--burgundy-900);
+  
+  --destructive: #dc2626;
+  --destructive-foreground: #fef2f2;
+  
+  --border: var(--cream-400);
+  --input: var(--cream-300);
+  --ring: var(--burgundy-500);
+  
+  --radius: 0.625rem;
 }
 
 @theme inline {
+  /* Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  
+  /* Burgundy scale */
+  --color-burgundy-50: var(--burgundy-50);
+  --color-burgundy-100: var(--burgundy-100);
+  --color-burgundy-200: var(--burgundy-200);
+  --color-burgundy-300: var(--burgundy-300);
+  --color-burgundy-400: var(--burgundy-400);
+  --color-burgundy-500: var(--burgundy-500);
+  --color-burgundy-600: var(--burgundy-600);
+  --color-burgundy-700: var(--burgundy-700);
+  --color-burgundy-800: var(--burgundy-800);
+  --color-burgundy-900: var(--burgundy-900);
+  
+  /* Cream scale */
+  --color-cream-50: var(--cream-50);
+  --color-cream-100: var(--cream-100);
+  --color-cream-200: var(--cream-200);
+  --color-cream-300: var(--cream-300);
+  --color-cream-400: var(--cream-400);
+  --color-cream-500: var(--cream-500);
+  
+  /* Accent colors */
+  --color-gold: var(--gold);
+  --color-warm-gray: var(--warm-gray);
+  
+  /* Fonts */
+  --font-sans: var(--font-unna), Georgia, serif;
+  --font-serif: var(--font-unna), Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cream-200);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--burgundy-300);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--burgundy-400);
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--burgundy-500);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: var(--burgundy-200);
+  color: var(--burgundy-900);
 }
