@@ -27,7 +27,8 @@ export function CategoryTabs({ activeCategory }: CategoryTabsProps) {
   const categories = [{ name: "Semua", slug: "" }, ...CATEGORIES];
 
   return (
-    <div className="flex flex-wrap justify-center gap-3">
+    <div className="flex w-full overflow-x-auto py-3 -mx-4 md:mx-0 md:overflow-visible md:flex-wrap md:justify-center scrollbar-hide">
+      <div className="flex gap-3 px-4 md:px-0 md:flex-wrap">
       {categories.map((category) => {
         const isActive = activeCategory === category.slug;
         const Icon = CATEGORY_ICONS[category.slug] || Package;
@@ -36,7 +37,7 @@ export function CategoryTabs({ activeCategory }: CategoryTabsProps) {
           <Link
             key={category.slug}
             href={category.slug ? `/galeri/${category.slug}` : "/galeri"}
-            className="group relative"
+            className="group relative flex-shrink-0"
           >
             <div
               className={cn(
@@ -52,13 +53,14 @@ export function CategoryTabs({ activeCategory }: CategoryTabsProps) {
                   isActive ? "scale-110" : "group-hover:scale-110"
                 )} 
               />
-              <span className="relative z-10">
+              <span className="relative z-10 whitespace-nowrap">
                 {category.name}
               </span>
             </div>
           </Link>
         );
       })}
+      </div>
     </div>
   );
 }
