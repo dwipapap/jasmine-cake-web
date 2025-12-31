@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
-import { CategoryTabs, ProductCard } from "@/components/gallery";
+import { ImageGalleryGrid } from "@/components/gallery/ImageGalleryGrid";
 import { createClient } from "@/lib/supabase/server";
 import type { ProductWithImages } from "@/lib/supabase/types";
-import { PackageOpen, Images } from "lucide-react";
+import { Images } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Galeri Produk",
-  description:
-    "Lihat galeri produk kue dan makanan homemade dari Jasmine Cake and Cookies",
+  title: "Portfolio Foto",
+  description: "Galeri lengkap semua foto produk dari Jasmine Cake and Cookies",
 };
 
-export default async function GaleriPage() {
+export default async function FotoPage() {
   const supabase = await createClient();
 
   const { data: products } = await supabase
@@ -28,6 +27,19 @@ export default async function GaleriPage() {
 
   const typedProducts = (products as ProductWithImages[]) || [];
 
+  const allImages = typedProducts.flatMap((product) =>
+    product.product_images.map((image) => ({
+      id: image.id,
+      url: image.image_url,
+      productName: product.name,
+      productId: product.id,
+      categoryName: product.categories?.name || "Tanpa Kategori",
+      categorySlug: product.categories?.slug || "",
+    }))
+  );
+
+  const totalImages = allImages.length;
+
   return (
     <div className="min-h-screen bg-cream-50">
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -37,49 +49,36 @@ export default async function GaleriPage() {
 
       <div className="relative pb-24 pt-16">
         <div className="container mx-auto px-4">
-          <div className="mb-16 text-center">
-            <span className="mb-3 inline-block rounded-full bg-burgundy-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-burgundy-700">
-              Koleksi Dapur Keluarga
-            </span>
-            <h1 className="mb-6 font-serif text-4xl font-bold text-burgundy-900 md:text-5xl lg:text-6xl">
-              Galeri Kelezatan
-            </h1>
-            <p className="mx-auto max-w-2xl text-lg text-burgundy-700/80 mb-6">
-              Jelajahi ragam sajian istimewa kami, mulai dari kue kering renyah, kue basah lembut, hingga tumpeng megah untuk momen spesial Anda.
-            </p>
+          <div className="mb-12 text-center">
             <Link
-              href="/galeri/foto"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-burgundy-700 shadow-md transition-all hover:shadow-lg hover:bg-burgundy-50"
+              href="/galeri"
+              className="mb-4 inline-flex items-center gap-2 text-sm text-burgundy-600 hover:text-burgundy-800 transition-colors"
             >
-              <Images className="h-4 w-4" />
-              Lihat Semua Foto Portfolio
+              ← Kembali ke Galeri Produk
             </Link>
+            <span className="mb-3 inline-block rounded-full bg-burgundy-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-burgundy-700">
+              Portfolio
+            </span>
+            <h1 className="mb-4 font-serif text-4xl font-bold text-burgundy-900 md:text-5xl lg:text-6xl">
+              Semua Foto
+            </h1>
+            <p className="mx-auto mb-3 max-w-2xl text-lg text-burgundy-700/80">
+              Jelajahi {totalImages} foto dari koleksi kami
+            </p>
           </div>
 
-          <div className="mb-12">
-            <CategoryTabs />
-          </div>
-
-          {typedProducts.length > 0 ? (
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {typedProducts.map((product, index) => (
-                <ProductCard 
-                  key={product.id} 
-                  product={product} 
-                  priority={index < 4}
-                />
-              ))}
-            </div>
+          {allImages.length > 0 ? (
+            <ImageGalleryGrid images={allImages} />
           ) : (
             <div className="flex min-h-[400px] flex-col items-center justify-center rounded-2xl border border-dashed border-burgundy-200 bg-white/50 p-12 text-center shadow-sm">
               <div className="mb-6 rounded-full bg-burgundy-50 p-6">
-                <PackageOpen className="h-12 w-12 text-burgundy-300" />
+                <Images className="h-12 w-12 text-burgundy-300" />
               </div>
               <h3 className="mb-2 text-xl font-bold text-burgundy-800">
-                Belum Ada Produk
+                Belum Ada Foto
               </h3>
               <p className="max-w-md text-burgundy-600">
-                Koleksi lezat kami sedang disiapkan. Silakan kembali lagi nanti untuk melihat menu terbaru kami.
+                Belum ada foto yang tersedia untuk ditampilkan.
               </p>
             </div>
           )}
