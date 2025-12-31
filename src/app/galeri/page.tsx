@@ -49,10 +49,12 @@ export default async function GaleriPage() {
             </p>
             <Link
               href="/galeri/foto"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-burgundy-700 shadow-md transition-all hover:shadow-lg hover:bg-burgundy-50"
+              className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-burgundy-200 bg-white px-6 py-3 text-sm font-medium text-burgundy-700 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-burgundy-300 hover:bg-cream-50 hover:shadow-md"
             >
-              <Images className="h-4 w-4" />
-              Lihat Semua Foto Portfolio
+              <Images className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
+              <span className="relative z-10 whitespace-nowrap">
+                Lihat Semua Foto Portfolio
+              </span>
             </Link>
           </div>
 
