@@ -35,12 +35,11 @@ export function Navbar() {
         </Link>
 
         <nav className="hidden md:flex md:items-center md:gap-1">
-          {navLinks.map((link, index) => (
+          {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="relative px-5 py-2.5 text-sm font-medium text-burgundy-700 transition-all duration-200 hover:text-burgundy-900 rounded-lg hover:bg-burgundy-100/50"
-              style={{ animationDelay: `${index * 50}ms` }}
+              className="relative px-5 py-2.5 text-sm font-medium text-burgundy-700 transition-colors duration-200 hover:text-burgundy-900 rounded-lg hover:bg-burgundy-100/50"
             >
               {link.label}
             </Link>
@@ -60,40 +59,23 @@ export function Navbar() {
 
       <div
         className={cn(
-          "overflow-hidden border-t border-cream-200/50 bg-cream-50/95 md:hidden transition-all duration-300 ease-in-out",
-          isOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+          "mobile-nav border-t border-cream-200/50 bg-cream-50 md:hidden",
+          isOpen && "mobile-nav-open"
         )}
       >
         <nav className="flex flex-col space-y-1 p-4 sm:p-6">
-          {navLinks.map((link, index) => (
+          {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="rounded-xl px-5 py-3.5 text-sm font-medium text-burgundy-700 transition-all duration-200 hover:bg-burgundy-100/70 hover:text-burgundy-900 hover:pl-6"
+              className="mobile-nav-link rounded-xl px-5 py-3.5 text-sm font-medium text-burgundy-700 hover:bg-burgundy-100/70 hover:text-burgundy-900 hover:pl-6"
               onClick={() => setIsOpen(false)}
-              style={{
-                animationDelay: `${index * 60}ms`,
-                animation: isOpen ? 'slideIn 0.3s ease-out forwards' : 'none'
-              }}
             >
               {link.label}
             </Link>
           ))}
         </nav>
       </div>
-
-      <style jsx>{`
-        @keyframes slideIn {
-          from {
-            opacity: 0;
-            transform: translateX(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-      `}</style>
     </header>
   );
 }
