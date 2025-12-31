@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Unna } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { Navbar, Footer, WhatsAppButton } from "@/components/layout";
 import "./globals.css";
 
@@ -56,6 +57,7 @@ export default function RootLayout({
           <Footer />
         </div>
         <WhatsAppButton floating />
+        <Analytics />
       </body>
     </html>
   );
