@@ -213,7 +213,11 @@ html {
 
 /* Mobile navigation animations (GPU-accelerated) */
 .mobile-nav {
-  transform: translateY(-100%);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  transform: translateY(-10px);
   opacity: 0;
   visibility: hidden;
   transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
