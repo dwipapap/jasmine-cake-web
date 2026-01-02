@@ -38,12 +38,13 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
                 <div className="absolute inset-0 opacity-[0.03]" 
                      style={{ backgroundImage: 'radial-gradient(#7C3A3E 1px, transparent 1px)', backgroundSize: '20px 20px' }} 
                 />
-                <div className="absolute inset-0 flex items-center justify-center pb-16">
+                <div className="absolute inset-0 flex items-center justify-center">
                     <Cake 
                         strokeWidth={1} 
-                        className="h-32 w-32 text-burgundy-900/10 transition-all duration-500 group-hover:scale-110 group-hover:text-burgundy-900/20" 
+                        className="h-16 w-16 sm:h-24 sm:w-24 text-burgundy-900/10 transition-all duration-500 group-hover:scale-110 group-hover:text-burgundy-900/20" 
                     />
                 </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-cream-50 via-transparent to-transparent" />
             </div>
           )}
         </div>
@@ -66,8 +67,8 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
                 {product.name}
               </h3>
 
-              {product.description && (
-                <p className={`line-clamp-2 text-[10px] sm:text-sm leading-relaxed transition-colors duration-300 hidden sm:block ${hasImage ? 'text-white/80' : 'text-burgundy-600/80'}`}>
+              {product.description && hasImage && (
+                <p className="line-clamp-2 text-[10px] sm:text-sm leading-relaxed transition-colors duration-300 hidden sm:block text-white/80">
                   {product.description}
                 </p>
               )}
