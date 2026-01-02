@@ -44,6 +44,7 @@ export interface Database {
           id: string;
           name: string;
           description: string | null;
+          price: number | null;
           category_id: string | null;
           is_available: boolean;
           created_at: string;
@@ -53,6 +54,7 @@ export interface Database {
           id?: string;
           name: string;
           description?: string | null;
+          price?: number | null;
           category_id?: string | null;
           is_available?: boolean;
           created_at?: string;
@@ -62,6 +64,7 @@ export interface Database {
           id?: string;
           name?: string;
           description?: string | null;
+          price?: number | null;
           category_id?: string | null;
           is_available?: boolean;
           created_at?: string;

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { formatWhatsAppLink, WHATSAPP_NUMBER } from "@/lib/utils";
+import { formatWhatsAppLink, formatPrice, WHATSAPP_NUMBER } from "@/lib/utils";
 import type { ProductWithImages } from "@/lib/supabase/types";
 
 interface ProductInfoProps {
@@ -34,6 +34,16 @@ export function ProductInfo({ product }: ProductInfoProps) {
       <h1 className="text-3xl font-bold text-burgundy-900 md:text-4xl">
         {product.name}
       </h1>
+
+      {product.price ? (
+        <p className="text-xl font-medium text-burgundy-600">
+          {formatPrice(product.price)}
+        </p>
+      ) : (
+        <p className="text-sm italic text-burgundy-500">
+          Harga bisa dibicarakan
+        </p>
+      )}
 
       <div className="flex items-center gap-2">
         <span

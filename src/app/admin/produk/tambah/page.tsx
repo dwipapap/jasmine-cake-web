@@ -19,6 +19,7 @@ import { createProduct, uploadProductImage } from "@/lib/actions";
 const productSchema = z.object({
   name: z.string().min(1, "Nama produk harus diisi"),
   description: z.string().optional(),
+  price: z.string().optional(),
   category_id: z.string().min(1, "Kategori harus dipilih"),
   is_available: z.boolean(),
 });
@@ -73,9 +74,12 @@ export default function AddProductPage() {
     setUploadErrors([]);
 
     startTransition(async () => {
+      const priceValue = data.price ? parseInt(data.price.replace(/\D/g, ""), 10) : null;
+      
       const result = await createProduct({
         name: data.name,
         description: data.description,
+        price: priceValue,
         category_id: data.category_id,
         is_available: data.is_available,
       });
@@ -171,6 +175,20 @@ export default function AddProductPage() {
               {errors.name && (
                 <p className="text-sm text-red-600">{errors.name.message}</p>
               )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="price">Harga (Rp)</Label>
+              <Input
+                id="price"
+                type="text"
+                inputMode="numeric"
+                placeholder="Contoh: 150000 (kosongkan jika harga bisa dibicarakan)"
+                {...register("price")}
+              />
+              <p className="text-xs text-burgundy-500">
+                Kosongkan jika harga ingin dibicarakan via WhatsApp
+              </p>
             </div>
 
             <div className="space-y-2">

@@ -34,6 +34,7 @@ function validateImageFile(file: File): { valid: boolean; error?: string } {
 export async function createProduct(formData: {
   name: string;
   description?: string;
+  price?: number | null;
   category_id: string;
   is_available: boolean;
 }) {
@@ -44,6 +45,7 @@ export async function createProduct(formData: {
     .insert({
       name: formData.name,
       description: formData.description || null,
+      price: formData.price ?? null,
       category_id: formData.category_id,
       is_available: formData.is_available,
     })
@@ -66,6 +68,7 @@ export async function updateProduct(
   formData: {
     name: string;
     description?: string;
+    price?: number | null;
     category_id: string;
     is_available: boolean;
   }
@@ -77,6 +80,7 @@ export async function updateProduct(
     .update({
       name: formData.name,
       description: formData.description || null,
+      price: formData.price ?? null,
       category_id: formData.category_id,
       is_available: formData.is_available,
     })

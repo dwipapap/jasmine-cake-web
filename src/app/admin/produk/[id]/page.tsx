@@ -20,6 +20,7 @@ import { updateProduct, uploadProductImage, deleteProductImage } from "@/lib/act
 const productSchema = z.object({
   name: z.string().min(1, "Nama produk harus diisi"),
   description: z.string().optional(),
+  price: z.string().optional(),
   category_id: z.string().min(1, "Kategori harus dipilih"),
   is_available: z.boolean(),
 });
@@ -42,6 +43,7 @@ interface Product {
   id: string;
   name: string;
   description: string | null;
+  price: number | null;
   category_id: string;
   is_available: boolean;
   product_images: ProductImage[];
@@ -84,6 +86,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
             id,
             name,
             description,
+            price,
             category_id,
             is_available,
             product_images(id, image_url, is_primary)
@@ -103,6 +106,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
         reset({
           name: productData.name,
           description: productData.description || "",
+          price: productData.price ? productData.price.toString() : "",
           category_id: productData.category_id,
           is_available: productData.is_available,
         });
@@ -123,9 +127,12 @@ export default function EditProductPage({ params }: EditProductPageProps) {
     setError(null);
 
     startTransition(async () => {
+      const priceValue = data.price ? parseInt(data.price.replace(/\D/g, ""), 10) : null;
+      
       const result = await updateProduct(id, {
         name: data.name,
         description: data.description,
+        price: priceValue,
         category_id: data.category_id,
         is_available: data.is_available,
       });
@@ -252,6 +259,20 @@ export default function EditProductPage({ params }: EditProductPageProps) {
               {errors.name && (
                 <p className="text-sm text-red-600">{errors.name.message}</p>
               )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="price">Harga (Rp)</Label>
+              <Input
+                id="price"
+                type="text"
+                inputMode="numeric"
+                placeholder="Contoh: 150000 (kosongkan jika harga bisa dibicarakan)"
+                {...register("price")}
+              />
+              <p className="text-xs text-burgundy-500">
+                Kosongkan jika harga ingin dibicarakan via WhatsApp
+              </p>
             </div>
 
             <div className="space-y-2">

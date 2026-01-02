@@ -21,6 +21,10 @@ export function slugify(text: string): string {
     .replace(/-+$/, "");
 }
 
+export function formatPrice(price: number): string {
+  return `Rp ${price.toLocaleString("id-ID")}`;
+}
+
 export const WHATSAPP_NUMBER = "6285271219119";
 
 export const CATEGORIES = [
