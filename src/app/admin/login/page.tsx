@@ -54,7 +54,7 @@ export default function AdminLoginPage() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-cream-100 to-cream-200 p-4">
-      <Card className="w-full max-w-md p-8">
+      <Card className="w-full max-w-sm sm:max-w-md p-6 sm:p-8">
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-burgundy-100">
             <ChefHat className="h-8 w-8 text-burgundy-600" />

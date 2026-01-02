@@ -25,8 +25,8 @@ export default function AdminLayout({
   return (
     <div className="flex min-h-screen bg-cream-100">
       <AdminSidebar onLogout={handleLogout} />
-      <main className="flex-1 overflow-auto">
-        <div className="container mx-auto p-6 pt-16 lg:pt-6">{children}</div>
+      <main className="flex-1 overflow-auto pb-20 lg:pb-0">
+        <div className="container mx-auto p-4 lg:p-6">{children}</div>
       </main>
     </div>
   );

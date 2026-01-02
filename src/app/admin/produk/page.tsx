@@ -144,7 +144,7 @@ export default function AdminProductsPage() {
         </div>
       </Card>
 
-      <div className="overflow-hidden rounded-xl border border-border bg-card">
+      <div className="hidden lg:block overflow-hidden rounded-xl border border-border bg-card">
         <table className="w-full">
           <thead className="border-b border-border bg-cream-100">
             <tr>
@@ -215,15 +215,61 @@ export default function AdminProductsPage() {
             ))}
           </tbody>
         </table>
-
-        {filteredProducts.length === 0 && (
-          <div className="p-8 text-center text-burgundy-500">
-            {products.length === 0
-              ? "Belum ada produk. Klik tombol \"Tambah Produk\" untuk menambahkan."
-              : "Tidak ada produk yang ditemukan"}
-          </div>
-        )}
       </div>
+
+      <div className="lg:hidden grid gap-4">
+        {filteredProducts.map((product) => (
+          <Card key={product.id} className="p-4 flex flex-col gap-3">
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="font-medium text-burgundy-900">{product.name}</h3>
+                <p className="text-sm text-burgundy-500">
+                  {product.category?.name || "Tanpa Kategori"}
+                </p>
+              </div>
+              <span
+                className={`inline-flex rounded-full px-2 py-1 text-[10px] font-medium ${
+                  product.is_available
+                    ? "bg-green-100 text-green-700"
+                    : "bg-red-100 text-red-700"
+                }`}
+              >
+                {product.is_available ? "Tersedia" : "Habis"}
+              </span>
+            </div>
+            <div className="flex justify-end items-center gap-2 border-t border-cream-100 pt-3 mt-1">
+              <Button variant="outline" size="sm" asChild className="flex-1 h-9">
+                <Link href={`/admin/produk/${product.id}`}>
+                  <Pencil className="h-3.5 w-3.5 mr-2" />
+                  Edit
+                </Link>
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex-1 h-9 text-red-600 hover:bg-red-50 hover:text-red-700 border-red-200"
+                onClick={() => handleDelete(product.id, product.name)}
+                disabled={isPending && deletingId === product.id}
+              >
+                {isPending && deletingId === product.id ? (
+                  <Loader2 className="h-3.5 w-3.5 animate-spin mr-2" />
+                ) : (
+                  <Trash2 className="h-3.5 w-3.5 mr-2" />
+                )}
+                Hapus
+              </Button>
+            </div>
+          </Card>
+        ))}
+      </div>
+
+      {filteredProducts.length === 0 && (
+        <div className="p-8 text-center text-burgundy-500">
+          {products.length === 0
+            ? "Belum ada produk. Klik tombol \"Tambah Produk\" untuk menambahkan."
+            : "Tidak ada produk yang ditemukan"}
+        </div>
+      )}
     </div>
   );
 }

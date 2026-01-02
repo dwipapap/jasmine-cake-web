@@ -8,11 +8,8 @@ import {
   Folder,
   MessageSquare,
   LogOut,
-  Menu,
-  X,
   ChefHat,
 } from "lucide-react";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -29,7 +26,6 @@ interface AdminSidebarProps {
 
 export function AdminSidebar({ onLogout }: AdminSidebarProps) {
   const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   const isActive = (href: string) => {
     if (href === "/admin") {
@@ -38,11 +34,13 @@ export function AdminSidebar({ onLogout }: AdminSidebarProps) {
     return pathname.startsWith(href);
   };
 
-  const sidebarContent = (
-    <>
-      <div className="flex h-16 items-center gap-2 border-b border-burgundy-200 px-4">
+  const desktopSidebar = (
+    <aside className="hidden w-64 flex-col border-r border-burgundy-200 bg-white lg:flex">
+      <div className="flex h-16 items-center gap-2 border-b border-burgundy-200 px-6">
         <ChefHat className="h-6 w-6 text-burgundy-600" />
-        <span className="font-bold text-burgundy-900">Admin Panel</span>
+        <span className="font-serif text-xl font-bold text-burgundy-900">
+          Admin Panel
+        </span>
       </div>
 
       <nav className="flex-1 space-y-1 p-4">
@@ -50,7 +48,6 @@ export function AdminSidebar({ onLogout }: AdminSidebarProps) {
           <Link
             key={item.href}
             href={item.href}
-            onClick={() => setMobileOpen(false)}
             className={cn(
               "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
               isActive(item.href)
@@ -80,37 +77,60 @@ export function AdminSidebar({ onLogout }: AdminSidebarProps) {
           ← Kembali ke Website
         </Link>
       </div>
-    </>
+    </aside>
+  );
+
+  const mobileBottomNav = (
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-cream-200 bg-white pb-safe lg:hidden">
+      <div className="flex h-16 items-center justify-around px-2">
+        {SIDEBAR_ITEMS.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="flex flex-col items-center justify-center gap-1 px-1 py-1 sm:px-3 sm:py-2"
+            >
+              <div
+                className={cn(
+                  "flex items-center justify-center rounded-full px-4 py-1.5 transition-all duration-200",
+                  active
+                    ? "bg-burgundy-100 text-burgundy-700"
+                    : "text-burgundy-400"
+                )}
+              >
+                <item.icon className="h-5 w-5" />
+              </div>
+              <span
+                className={cn(
+                  "text-[10px] font-medium transition-colors duration-200",
+                  active ? "text-burgundy-700" : "text-burgundy-400"
+                )}
+              >
+                {item.label}
+              </span>
+            </Link>
+          );
+        })}
+        <button
+          onClick={onLogout}
+          className="flex flex-col items-center justify-center gap-1 px-1 py-1 sm:px-3 sm:py-2"
+        >
+          <div className="flex items-center justify-center rounded-full px-4 py-1.5 text-burgundy-400 transition-all duration-200 hover:bg-burgundy-50 hover:text-burgundy-700">
+            <LogOut className="h-5 w-5" />
+          </div>
+          <span className="text-[10px] font-medium text-burgundy-400 transition-colors duration-200">
+            Keluar
+          </span>
+        </button>
+      </div>
+    </nav>
   );
 
   return (
     <>
-      <button
-        className="fixed left-4 top-4 z-50 rounded-lg bg-white p-2 shadow-md lg:hidden"
-        onClick={() => setMobileOpen(!mobileOpen)}
-      >
-        {mobileOpen ? (
-          <X className="h-6 w-6 text-burgundy-600" />
-        ) : (
-          <Menu className="h-6 w-6 text-burgundy-600" />
-        )}
-      </button>
-
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
-          onClick={() => setMobileOpen(false)}
-        />
-      )}
-
-      <aside
-        className={cn(
-          "fixed inset-y-0 left-0 z-40 flex w-64 flex-col bg-white shadow-lg transition-transform lg:relative lg:translate-x-0",
-          mobileOpen ? "translate-x-0" : "-translate-x-full"
-        )}
-      >
-        {sidebarContent}
-      </aside>
+      {desktopSidebar}
+      {mobileBottomNav}
     </>
   );
 }

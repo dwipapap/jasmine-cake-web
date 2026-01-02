@@ -81,19 +81,19 @@ export default async function AdminDashboardPage() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
           <Link key={stat.label} href={stat.href}>
-            <Card className="p-6 transition-all hover:-translate-y-1 hover:shadow-md">
-              <div className="flex items-center justify-between">
+            <Card className="p-4 transition-all hover:-translate-y-1 hover:shadow-md h-full">
+              <div className="flex flex-col items-start gap-2 lg:flex-row lg:items-center lg:justify-between">
                 <div>
-                  <p className="text-sm text-burgundy-600">{stat.label}</p>
-                  <p className="mt-1 text-3xl font-bold text-burgundy-900">
+                  <p className="text-xs lg:text-sm text-burgundy-600">{stat.label}</p>
+                  <p className="text-xl lg:text-3xl font-bold text-burgundy-900 mt-1">
                     {stat.value}
                   </p>
                 </div>
-                <div className={`rounded-full p-3 ${stat.color}`}>
-                  <stat.icon className="h-6 w-6" />
+                <div className={`rounded-full p-2 lg:p-3 ${stat.color} self-end lg:self-auto`}>
+                  <stat.icon className="h-5 w-5 lg:h-6 lg:w-6" />
                 </div>
               </div>
             </Card>
@@ -102,16 +102,16 @@ export default async function AdminDashboardPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card className="p-6">
+        <Card className="p-4 lg:p-6">
           <h2 className="mb-4 text-lg font-semibold text-burgundy-900">
             Aksi Cepat
           </h2>
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2 sm:flex-row lg:flex-col xl:flex-row">
             {QUICK_ACTIONS.map((action) => (
               <Link
                 key={action.label}
                 href={action.href}
-                className="block rounded-lg border border-burgundy-200 p-3 text-burgundy-700 transition-colors hover:bg-burgundy-50"
+                className="block w-full text-center rounded-lg border border-burgundy-200 p-3 text-sm text-burgundy-700 transition-colors hover:bg-burgundy-50"
               >
                 {action.label}
               </Link>
@@ -119,7 +119,7 @@ export default async function AdminDashboardPage() {
           </div>
         </Card>
 
-        <Card className="p-6">
+        <Card className="p-4 lg:p-6">
           <h2 className="mb-4 text-lg font-semibold text-burgundy-900">
             Produk Terbaru
           </h2>
@@ -131,21 +131,21 @@ export default async function AdminDashboardPage() {
                   href={`/admin/produk/${product.id}`}
                   className="flex items-center justify-between rounded-lg bg-cream-50 p-3 transition-colors hover:bg-cream-100"
                 >
-                  <span className="text-burgundy-700">{product.name}</span>
+                  <span className="text-sm font-medium text-burgundy-700 truncate mr-2">{product.name}</span>
                   <span
-                    className={`rounded-full px-2 py-1 text-xs ${
+                    className={`flex-shrink-0 rounded-full px-2 py-0.5 text-[10px] sm:text-xs ${
                       product.is_available
                         ? "bg-green-100 text-green-700"
                         : "bg-red-100 text-red-700"
                     }`}
                   >
-                    {product.is_available ? "Tersedia" : "Tidak Tersedia"}
+                    {product.is_available ? "Tersedia" : "Habis"}
                   </span>
                 </Link>
               ))}
             </div>
           ) : (
-            <p className="text-center text-burgundy-500">
+            <p className="text-center text-sm text-burgundy-500">
               Belum ada produk. Tambahkan produk pertama Anda!
             </p>
           )}

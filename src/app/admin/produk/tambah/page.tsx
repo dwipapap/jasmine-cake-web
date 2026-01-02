@@ -160,7 +160,7 @@ export default function AddProductPage() {
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <Card className="p-6">
+        <Card className="p-4 sm:p-6">
           <h2 className="mb-4 text-lg font-semibold text-burgundy-900">
             Informasi Produk
           </h2>
@@ -243,7 +243,7 @@ export default function AddProductPage() {
           </div>
         </Card>
 
-        <Card className="p-6">
+        <Card className="p-4 sm:p-6">
           <h2 className="mb-4 text-lg font-semibold text-burgundy-900">
             Foto Produk
           </h2>
@@ -268,7 +268,7 @@ export default function AddProductPage() {
             </div>
 
             {images.length > 0 && (
-              <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6">
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 sm:grid-cols-4 md:grid-cols-6">
                 {images.map((image, index) => (
                   <div key={index} className="group relative aspect-square">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -280,12 +280,12 @@ export default function AddProductPage() {
                     <button
                       type="button"
                       onClick={() => removeImage(index)}
-                      className="absolute -right-2 -top-2 rounded-full bg-red-500 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100"
+                      className="absolute -right-2 -top-2 rounded-full bg-red-500 p-1 text-white opacity-0 transition-opacity group-hover:opacity-100 sm:opacity-0 opacity-100"
                     >
-                      <X className="h-4 w-4" />
+                      <X className="h-3 w-3 sm:h-4 sm:w-4" />
                     </button>
                     {index === 0 && (
-                      <span className="absolute bottom-1 left-1 rounded bg-burgundy-600 px-1 text-xs text-white">
+                      <span className="absolute bottom-1 left-1 rounded bg-burgundy-600 px-1 text-[10px] text-white">
                         Utama
                       </span>
                     )}
@@ -296,8 +296,11 @@ export default function AddProductPage() {
           </div>
         </Card>
 
-        <div className="flex gap-4">
-          <Button type="submit" disabled={isPending}>
+        <div className="flex flex-col-reverse gap-3 sm:flex-row sm:gap-4">
+          <Button type="button" variant="outline" asChild className="w-full sm:w-auto">
+            <Link href="/admin/produk">Batal</Link>
+          </Button>
+          <Button type="submit" disabled={isPending} className="w-full sm:w-auto">
             {isPending ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -306,9 +309,6 @@ export default function AddProductPage() {
             ) : (
               "Simpan Produk"
             )}
-          </Button>
-          <Button type="button" variant="outline" asChild>
-            <Link href="/admin/produk">Batal</Link>
           </Button>
         </div>
       </form>

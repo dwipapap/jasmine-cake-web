@@ -210,7 +210,7 @@ export default function AdminCategoryPage() {
               </span>
               <div className="flex-1">
                 {editingId === category.id ? (
-                  <div className="flex gap-2">
+                  <div className="flex flex-col gap-2 sm:flex-row">
                     <Input
                       value={editForm.name}
                       onChange={(e) => setEditForm((prev) => ({ ...prev, name: e.target.value }))}
@@ -241,6 +241,7 @@ export default function AdminCategoryPage() {
                       size="sm"
                       onClick={() => handleSave(category.id)}
                       disabled={isPending}
+                      className="h-10 w-10 sm:h-9 sm:w-auto"
                     >
                       {isPending ? (
                         <Loader2 className="h-4 w-4 animate-spin" />
@@ -252,6 +253,7 @@ export default function AdminCategoryPage() {
                       size="sm"
                       variant="outline"
                       onClick={() => setEditingId(null)}
+                      className="h-10 w-10 sm:h-9 sm:w-auto"
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -262,13 +264,14 @@ export default function AdminCategoryPage() {
                       variant="ghost"
                       size="icon"
                       onClick={() => handleEdit(category)}
+                      className="h-10 w-10 sm:h-9 sm:w-9"
                     >
                       <Pencil className="h-4 w-4" />
                     </Button>
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="text-red-600 hover:bg-red-50 hover:text-red-700"
+                      className="text-red-600 hover:bg-red-50 hover:text-red-700 h-10 w-10 sm:h-9 sm:w-9"
                       onClick={() => handleDelete(category.id, category.name)}
                       disabled={deletingId === category.id}
                     >

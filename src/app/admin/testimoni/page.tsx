@@ -165,20 +165,31 @@ export default function AdminTestimoniPage() {
           </p>
         </Card>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial) => (
-            <Card key={testimonial.id} className="p-4">
-              <div className="mb-3 flex items-start justify-between">
-                <div>
-                  <p className="font-semibold text-burgundy-900">
-                    {testimonial.customer_name}
-                  </p>
-                  {testimonial.product && (
-                    <p className="text-sm text-burgundy-500">
-                      {testimonial.product.name}
+            <Card key={testimonial.id} className="p-4 flex flex-col justify-between h-full">
+              <div>
+                <div className="mb-3 flex items-start justify-between">
+                  <div>
+                    <p className="font-semibold text-burgundy-900">
+                      {testimonial.customer_name}
                     </p>
-                  )}
+                    {testimonial.product && (
+                      <p className="text-sm text-burgundy-500">
+                        {testimonial.product.name}
+                      </p>
+                    )}
+                  </div>
                 </div>
+                <p className="line-clamp-3 text-sm text-burgundy-700 mb-4 italic">
+                  &ldquo;{testimonial.message}&rdquo;
+                </p>
+              </div>
+              
+              <div className="flex items-center justify-between border-t border-cream-100 pt-3">
+                <p className="text-xs text-burgundy-400">
+                  {formatDate(testimonial.created_at)}
+                </p>
                 <div className="flex gap-1">
                   <Button
                     variant="ghost"
@@ -187,11 +198,11 @@ export default function AdminTestimoniPage() {
                       handleToggleFeatured(testimonial.id, testimonial.is_featured)
                     }
                     disabled={isPending && togglingId === testimonial.id}
-                    className={
+                    className={`h-10 w-10 sm:h-9 sm:w-9 ${
                       testimonial.is_featured
                         ? "text-yellow-500 hover:text-yellow-600"
                         : "text-burgundy-300 hover:text-burgundy-500"
-                    }
+                    }`}
                   >
                     {isPending && togglingId === testimonial.id ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -204,7 +215,7 @@ export default function AdminTestimoniPage() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="text-red-600 hover:bg-red-50 hover:text-red-700"
+                    className="text-red-600 hover:bg-red-50 hover:text-red-700 h-10 w-10 sm:h-9 sm:w-9"
                     onClick={() =>
                       handleDelete(testimonial.id, testimonial.customer_name)
                     }
@@ -218,12 +229,6 @@ export default function AdminTestimoniPage() {
                   </Button>
                 </div>
               </div>
-              <p className="line-clamp-3 text-sm text-burgundy-700">
-                &ldquo;{testimonial.message}&rdquo;
-              </p>
-              <p className="mt-2 text-xs text-burgundy-400">
-                {formatDate(testimonial.created_at)}
-              </p>
             </Card>
           ))}
         </div>
