@@ -15,7 +15,7 @@ export function CategorySection({ categories }: CategorySectionProps) {
   const displayCategories = categories || CATEGORIES;
 
   return (
-    <section className="relative py-24 md:py-32 overflow-hidden bg-cream-50/50">
+    <section className="relative py-16 md:py-20 overflow-hidden bg-cream-50/50">
       <div className="absolute inset-0 opacity-[0.4] pointer-events-none" 
            style={{ backgroundImage: 'radial-gradient(#EAB308 0.5px, transparent 0.5px)', backgroundSize: '24px 24px' }} 
       />
@@ -43,7 +43,7 @@ export function CategorySection({ categories }: CategorySectionProps) {
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+        <div className="grid gap-4 grid-cols-2 lg:grid-cols-3 lg:gap-10">
           {displayCategories.map((category) => {
             const imageUrl = "recentImageUrl" in category && category.recentImageUrl
               ? category.recentImageUrl

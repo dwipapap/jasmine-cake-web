@@ -18,7 +18,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
   return (
     <Link href={`/produk/${product.id}`} className="group block h-full w-full">
-      <Card className={`relative h-full min-h-[320px] w-full overflow-hidden rounded-3xl border-0 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-burgundy-900/20 ${hasImage ? 'bg-burgundy-900' : 'bg-cream-50'}`}>
+      <Card className={`relative h-full min-h-[200px] sm:min-h-[280px] w-full overflow-hidden rounded-2xl sm:rounded-3xl border-0 shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-burgundy-900/20 ${hasImage ? 'bg-burgundy-900' : 'bg-cream-50'}`}>
         
         <div className="absolute inset-0 z-0">
           {hasImage ? (
@@ -49,8 +49,8 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         </div>
 
         {product.categories && (
-          <div className="absolute left-4 top-4 z-10">
-            <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium shadow-sm ring-1 transition-all duration-300 ${
+          <div className="absolute left-2 top-2 sm:left-4 sm:top-4 z-10">
+            <span className={`inline-flex items-center rounded-full px-2 py-0.5 sm:px-3 sm:py-1 text-[10px] sm:text-xs font-medium shadow-sm ring-1 transition-all duration-300 ${
               hasImage 
                 ? 'bg-white/90 text-burgundy-900 ring-white/30' 
                 : 'bg-white/80 text-burgundy-700 ring-burgundy-100'
@@ -60,25 +60,25 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           </div>
         )}
 
-        <div className="absolute bottom-0 left-0 z-10 w-full p-6">
-           <div className="flex flex-col gap-2">
-              <h3 className={`text-2xl font-serif font-bold tracking-tight transition-colors duration-300 ${hasImage ? 'text-white' : 'text-burgundy-950 group-hover:text-burgundy-700'}`}>
+        <div className="absolute bottom-0 left-0 z-10 w-full p-3 sm:p-6">
+           <div className="flex flex-col gap-1 sm:gap-2">
+              <h3 className={`text-sm sm:text-2xl font-serif font-bold tracking-tight transition-colors duration-300 ${hasImage ? 'text-white' : 'text-burgundy-950 group-hover:text-burgundy-700'}`}>
                 {product.name}
               </h3>
 
               {product.description && (
-                <p className={`line-clamp-2 text-sm leading-relaxed transition-colors duration-300 ${hasImage ? 'text-white/80' : 'text-burgundy-600/80'}`}>
+                <p className={`line-clamp-2 text-[10px] sm:text-sm leading-relaxed transition-colors duration-300 hidden sm:block ${hasImage ? 'text-white/80' : 'text-burgundy-600/80'}`}>
                   {product.description}
                 </p>
               )}
 
-              <div className="mt-2 flex items-center justify-end">
-                 <div className={`flex items-center gap-2 transition-all duration-300 ${hasImage ? 'text-white' : 'text-burgundy-600'}`}>
-                    <span className={`text-xs font-bold uppercase tracking-widest opacity-0 transform translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 ${hasImage ? 'text-white' : 'text-burgundy-800'}`}>
+              <div className="mt-1 sm:mt-2 flex items-center justify-end">
+                 <div className={`flex items-center gap-1 sm:gap-2 transition-all duration-300 ${hasImage ? 'text-white' : 'text-burgundy-600'}`}>
+                    <span className={`text-[8px] sm:text-xs font-bold uppercase tracking-widest opacity-0 transform translate-x-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0 hidden sm:inline ${hasImage ? 'text-white' : 'text-burgundy-800'}`}>
                         Lihat Detail
                     </span>
-                    <div className={`flex h-8 w-8 items-center justify-center rounded-full border transition-all duration-300 ${hasImage ? 'border-white/30 bg-white/10 group-hover:bg-white group-hover:text-burgundy-900' : 'border-burgundy-200 bg-white group-hover:border-burgundy-600 group-hover:bg-burgundy-600 group-hover:text-white'}`}>
-                        <ArrowRight className="h-4 w-4" />
+                    <div className={`flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center rounded-full border transition-all duration-300 ${hasImage ? 'border-white/30 bg-white/10 group-hover:bg-white group-hover:text-burgundy-900' : 'border-burgundy-200 bg-white group-hover:border-burgundy-600 group-hover:bg-burgundy-600 group-hover:text-white'}`}>
+                        <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
                     </div>
                  </div>
               </div>

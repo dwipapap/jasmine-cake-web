@@ -46,7 +46,7 @@ export default async function TestimoniPage() {
         <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-gradient-to-bl from-gold/10 to-transparent opacity-60" />
       </div>
 
-      <div className="relative container mx-auto px-4 pb-24 pt-16">
+      <div className="relative container mx-auto px-4 pb-8 pt-16">
         <section className="mb-16 text-center">
           <span className="mb-3 inline-block rounded-full bg-burgundy-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-burgundy-700">
             Testimoni Pelanggan
@@ -67,7 +67,7 @@ export default async function TestimoniPage() {
             <h2 className="mb-8 font-serif text-2xl font-bold text-burgundy-900 md:text-3xl">
               Testimoni Pilihan
             </h2>
-            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 grid-cols-2 lg:grid-cols-3">
               {featuredTestimonials.map((testimonial) => (
                 <TestimonialCard
                   key={testimonial.id}
@@ -84,7 +84,7 @@ export default async function TestimoniPage() {
             <h2 className="mb-8 font-serif text-2xl font-bold text-burgundy-900 md:text-3xl">
               Testimoni Lainnya
             </h2>
-            <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 grid-cols-2 lg:grid-cols-3">
               {regularTestimonials.map((testimonial) => (
                 <TestimonialCard
                   key={testimonial.id}

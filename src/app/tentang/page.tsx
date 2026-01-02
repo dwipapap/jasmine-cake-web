@@ -50,10 +50,10 @@ export default function TentangPage() {
         <div className="absolute left-1/2 top-2/3 -translate-x-1/2 h-64 w-64 rounded-full bg-burgundy-50/50 blur-3xl" />
       </div>
 
-      <div className="relative container mx-auto px-4 py-12 md:py-20 lg:py-24">
+      <div className="relative container mx-auto px-4 py-12 md:py-16">
         <section className="mb-20 text-center md:mb-32">
-          <div className="animate-fade-in-up">
-            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-burgundy-100 bg-white/50 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-burgundy-600 backdrop-blur-sm shadow-sm">
+          <div>
+            <span className="mb-4 inline-flex items-center gap-2 rounded-full border border-burgundy-100 bg-white/50 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-burgundy-600 shadow-sm">
               <Star className="h-3 w-3 fill-burgundy-600 text-burgundy-600" />
               Cerita Dapur Kami
             </span>
@@ -77,9 +77,9 @@ export default function TentangPage() {
               return (
                 <div
                   key={feature.title}
-                  className="group relative overflow-hidden rounded-3xl bg-white p-5 shadow-sm ring-1 ring-burgundy-100/50 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-burgundy-900/5 sm:p-8"
+                  className="group relative overflow-hidden rounded-3xl bg-white p-5 shadow-sm ring-1 ring-burgundy-100/50 sm:p-8"
                 >
-                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cream-100 text-burgundy-700 transition-colors duration-500 group-hover:bg-burgundy-600 group-hover:text-cream-50 sm:mb-6 sm:h-14 sm:w-14">
+                  <div className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-cream-100 text-burgundy-700 sm:mb-6 sm:h-14 sm:w-14">
                     <Icon className="h-5 w-5 sm:h-7 sm:w-7" />
                   </div>
 

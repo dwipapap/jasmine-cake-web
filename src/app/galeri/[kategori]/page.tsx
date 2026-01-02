@@ -71,7 +71,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="absolute -right-20 top-40 h-80 w-80 rounded-full bg-gradient-to-bl from-gold/10 to-transparent opacity-60" />
       </div>
 
-      <div className="relative pb-24 pt-16">
+      <div className="relative pb-8 pt-16">
         <div className="container mx-auto px-4">
           <div className="mb-16 text-center">
             <span className="mb-3 inline-block rounded-full bg-burgundy-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-burgundy-700">
@@ -90,7 +90,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           </div>
 
           {typedProducts.length > 0 ? (
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {typedProducts.map((product, index) => (
                 <ProductCard 
                   key={product.id} 
