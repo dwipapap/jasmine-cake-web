@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ChefHat, Eye, EyeOff, Loader2 } from "lucide-react";
+import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -43,7 +44,6 @@ export default function AdminLoginPage() {
     });
 
     if (authError) {
-      console.error("Auth error:", authError);
       setError(authError.message);
       return;
     }
@@ -106,9 +106,9 @@ export default function AdminLoginPage() {
           </div>
 
           {error && (
-            <div className="rounded-lg bg-red-50 p-3 text-sm text-red-600">
+            <Alert variant="error" title="Login Gagal">
               {error}
-            </div>
+            </Alert>
           )}
 
           <Button type="submit" className="w-full" disabled={isSubmitting}>

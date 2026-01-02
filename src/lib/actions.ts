@@ -3,6 +3,34 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 
+const MAX_FILE_SIZE_5MB = 5 * 1024 * 1024;
+const ALLOWED_IMAGE_TYPES = [
+  "image/jpeg",
+  "image/jpg",
+  "image/png",
+  "image/webp",
+  "image/gif",
+];
+
+function validateImageFile(file: File): { valid: boolean; error?: string } {
+  if (!ALLOWED_IMAGE_TYPES.includes(file.type)) {
+    return {
+      valid: false,
+      error: `Tipe file tidak didukung. Gunakan: JPG, PNG, WebP, atau GIF`,
+    };
+  }
+
+  if (file.size > MAX_FILE_SIZE_5MB) {
+    const sizeMB = (file.size / (1024 * 1024)).toFixed(2);
+    return {
+      valid: false,
+      error: `Ukuran file terlalu besar (${sizeMB}MB). Maksimal 5MB`,
+    };
+  }
+
+  return { valid: true };
+}
+
 export async function createProduct(formData: {
   name: string;
   description?: string;
@@ -96,6 +124,11 @@ export async function uploadProductImage(
   file: File,
   isPrimary: boolean = false
 ) {
+  const validation = validateImageFile(file);
+  if (!validation.valid) {
+    return { error: validation.error };
+  }
+
   const supabase = await createClient();
 
   const fileExt = file.name.split(".").pop();
@@ -269,6 +302,11 @@ export async function deleteTestimonial(id: string) {
 }
 
 export async function uploadTestimonialImage(file: File) {
+  const validation = validateImageFile(file);
+  if (!validation.valid) {
+    return { error: validation.error };
+  }
+
   const supabase = await createClient();
 
   const fileExt = file.name.split(".").pop();

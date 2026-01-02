@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ArrowLeft, Loader2, Upload, X, Trash2 } from "lucide-react";
+import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -61,6 +62,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [deletingImageId, setDeletingImageId] = useState<string | null>(null);
+  const [uploadErrors, setUploadErrors] = useState<string[]>([]);
 
   const {
     register,
@@ -135,14 +137,20 @@ export default function EditProductPage({ params }: EditProductPageProps) {
 
       if (newImages.length > 0) {
         const hasPrimary = existingImages.some((img) => img.is_primary);
+        const failedUploads: string[] = [];
         
         for (let i = 0; i < newImages.length; i++) {
           const isPrimary = !hasPrimary && i === 0;
           const uploadResult = await uploadProductImage(id, newImages[i], isPrimary);
 
           if (uploadResult.error) {
-            console.error("Failed to upload image:", uploadResult.error);
+            failedUploads.push(`${newImages[i].name}: ${uploadResult.error}`);
           }
+        }
+
+        if (failedUploads.length > 0) {
+          setUploadErrors(failedUploads);
+          return;
         }
       }
 
@@ -212,9 +220,20 @@ export default function EditProductPage({ params }: EditProductPageProps) {
       </div>
 
       {error && (
-        <div className="rounded-lg border border-red-200 bg-red-50 p-4 text-red-700">
+        <Alert variant="error" title="Terjadi Kesalahan">
           {error}
-        </div>
+        </Alert>
+      )}
+
+      {uploadErrors.length > 0 && (
+        <Alert variant="error" title="Gagal Upload Foto">
+          <p className="mb-2">Beberapa foto gagal diupload:</p>
+          <ul className="list-inside list-disc text-sm opacity-90">
+            {uploadErrors.map((err, index) => (
+              <li key={index}>{err}</li>
+            ))}
+          </ul>
+        </Alert>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
