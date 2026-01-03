@@ -123,11 +123,15 @@ export async function deleteProduct(id: string) {
   return { success: true };
 }
 
-export async function uploadProductImage(
-  productId: string,
-  file: File,
-  isPrimary: boolean = false
-) {
+export async function uploadProductImage(formData: FormData) {
+  const productId = formData.get("productId") as string;
+  const file = formData.get("file") as File;
+  const isPrimary = formData.get("isPrimary") === "true";
+
+  if (!productId || !file) {
+    return { error: "Data tidak lengkap" };
+  }
+
   const validation = validateImageFile(file);
   if (!validation.valid) {
     return { error: validation.error };

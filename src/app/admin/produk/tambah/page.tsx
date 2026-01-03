@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useTransition } from "react";
+import { useState, useEffect, useTransition, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { createBrowserClient } from "@/lib/supabase/client";
 import { createProduct, uploadProductImage } from "@/lib/actions";
+import type { Product } from "@/lib/supabase/types";
 
 const productSchema = z.object({
   name: z.string().min(1, "Nama produk harus diisi"),
@@ -32,11 +33,17 @@ interface Category {
   slug: string;
 }
 
+interface ImagePreview {
+  file: File;
+  previewUrl: string;
+}
+
 export default function AddProductPage() {
   const router = useRouter();
   const [categories, setCategories] = useState<Category[]>([]);
-  const [images, setImages] = useState<File[]>([]);
+  const [images, setImages] = useState<ImagePreview[]>([]);
   const [isLoadingCategories, setIsLoadingCategories] = useState(true);
+  const [categoryError, setCategoryError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [uploadErrors, setUploadErrors] = useState<string[]>([]);
@@ -54,20 +61,36 @@ export default function AddProductPage() {
 
   useEffect(() => {
     async function fetchCategories() {
-      const supabase = createBrowserClient();
-      const { data } = await supabase
-        .from("categories")
-        .select("id, name, slug")
-        .order("display_order");
+      try {
+        const supabase = createBrowserClient();
+        const { data, error: fetchError } = await supabase
+          .from("categories")
+          .select("id, name, slug")
+          .order("display_order");
 
-      if (data) {
-        setCategories(data);
+        if (fetchError) {
+          setCategoryError("Gagal memuat kategori. Silakan refresh halaman.");
+          return;
+        }
+
+        if (data) {
+          setCategories(data);
+        }
+      } catch {
+        setCategoryError("Gagal memuat kategori. Silakan refresh halaman.");
+      } finally {
+        setIsLoadingCategories(false);
       }
-      setIsLoadingCategories(false);
     }
 
     fetchCategories();
   }, []);
+
+  useEffect(() => {
+    return () => {
+      images.forEach((img) => URL.revokeObjectURL(img.previewUrl));
+    };
+  }, [images]);
 
   const onSubmit = async (data: ProductForm) => {
     setError(null);
@@ -89,20 +112,27 @@ export default function AddProductPage() {
         return;
       }
 
-      const productId = (result.data as { id: string } | undefined)?.id;
+      const productData = result.data as Product | undefined;
+      const productId = productData?.id;
 
-      if (productId && images.length > 0) {
+      if (!productId) {
+        setError("Gagal mendapatkan ID produk");
+        return;
+      }
+
+      if (images.length > 0) {
         const failedUploads: string[] = [];
         
         for (let i = 0; i < images.length; i++) {
-          const uploadResult = await uploadProductImage(
-            productId,
-            images[i],
-            i === 0
-          );
+          const formData = new FormData();
+          formData.append("productId", productId);
+          formData.append("file", images[i].file);
+          formData.append("isPrimary", i === 0 ? "true" : "false");
+
+          const uploadResult = await uploadProductImage(formData);
 
           if ("error" in uploadResult) {
-            failedUploads.push(`${images[i].name}: ${uploadResult.error}`);
+            failedUploads.push(`${images[i].file.name}: ${uploadResult.error}`);
           }
         }
 
@@ -116,16 +146,24 @@ export default function AddProductPage() {
     });
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
-      setImages((prev) => [...prev, ...Array.from(files)]);
+      const newImages: ImagePreview[] = Array.from(files).map((file) => ({
+        file,
+        previewUrl: URL.createObjectURL(file),
+      }));
+      setImages((prev) => [...prev, ...newImages]);
     }
-  };
+    e.target.value = "";
+  }, []);
 
-  const removeImage = (index: number) => {
-    setImages((prev) => prev.filter((_, i) => i !== index));
-  };
+  const removeImage = useCallback((index: number) => {
+    setImages((prev) => {
+      URL.revokeObjectURL(prev[index].previewUrl);
+      return prev.filter((_, i) => i !== index);
+    });
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -145,6 +183,12 @@ export default function AddProductPage() {
       {error && (
         <Alert variant="error" title="Terjadi Kesalahan">
           {error}
+        </Alert>
+      )}
+
+      {categoryError && (
+        <Alert variant="error" title="Gagal Memuat Kategori">
+          {categoryError}
         </Alert>
       )}
 
@@ -273,7 +317,7 @@ export default function AddProductPage() {
                   <div key={index} className="group relative aspect-square">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src={URL.createObjectURL(image)}
+                      src={image.previewUrl}
                       alt={`Preview ${index + 1}`}
                       className="h-full w-full rounded-lg object-cover"
                     />

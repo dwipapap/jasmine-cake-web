@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, use, useTransition } from "react";
+import { useState, useEffect, use, useTransition, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -49,6 +49,11 @@ interface Product {
   product_images: ProductImage[];
 }
 
+interface ImagePreview {
+  file: File;
+  previewUrl: string;
+}
+
 interface EditProductPageProps {
   params: Promise<{ id: string }>;
 }
@@ -59,7 +64,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
   const [product, setProduct] = useState<Product | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [existingImages, setExistingImages] = useState<ProductImage[]>([]);
-  const [newImages, setNewImages] = useState<File[]>([]);
+  const [newImages, setNewImages] = useState<ImagePreview[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
@@ -123,6 +128,12 @@ export default function EditProductPage({ params }: EditProductPageProps) {
     fetchData();
   }, [id, reset]);
 
+  useEffect(() => {
+    return () => {
+      newImages.forEach((img) => URL.revokeObjectURL(img.previewUrl));
+    };
+  }, [newImages]);
+
   const onSubmit = async (data: ProductForm) => {
     setError(null);
 
@@ -148,10 +159,16 @@ export default function EditProductPage({ params }: EditProductPageProps) {
         
         for (let i = 0; i < newImages.length; i++) {
           const isPrimary = !hasPrimary && i === 0;
-          const uploadResult = await uploadProductImage(id, newImages[i], isPrimary);
+          
+          const formData = new FormData();
+          formData.append("productId", id);
+          formData.append("file", newImages[i].file);
+          formData.append("isPrimary", isPrimary ? "true" : "false");
+
+          const uploadResult = await uploadProductImage(formData);
 
           if (uploadResult.error) {
-            failedUploads.push(`${newImages[i].name}: ${uploadResult.error}`);
+            failedUploads.push(`${newImages[i].file.name}: ${uploadResult.error}`);
           }
         }
 
@@ -165,16 +182,24 @@ export default function EditProductPage({ params }: EditProductPageProps) {
     });
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
-      setNewImages((prev) => [...prev, ...Array.from(files)]);
+      const previews: ImagePreview[] = Array.from(files).map((file) => ({
+        file,
+        previewUrl: URL.createObjectURL(file),
+      }));
+      setNewImages((prev) => [...prev, ...previews]);
     }
-  };
+    e.target.value = "";
+  }, []);
 
-  const removeNewImage = (index: number) => {
-    setNewImages((prev) => prev.filter((_, i) => i !== index));
-  };
+  const removeNewImage = useCallback((index: number) => {
+    setNewImages((prev) => {
+      URL.revokeObjectURL(prev[index].previewUrl);
+      return prev.filter((_, i) => i !== index);
+    });
+  }, []);
 
   const handleDeleteExistingImage = async (imageId: string) => {
     if (!confirm("Yakin ingin menghapus foto ini?")) return;
@@ -392,7 +417,7 @@ export default function EditProductPage({ params }: EditProductPageProps) {
                     <div key={index} className="group relative aspect-square">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
-                        src={URL.createObjectURL(image)}
+                        src={image.previewUrl}
                         alt={`Preview ${index + 1}`}
                         className="h-full w-full rounded-lg object-cover"
                       />
