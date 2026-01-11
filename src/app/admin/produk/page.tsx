@@ -1,8 +1,11 @@
 "use client";
 
+import { Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Plus, Pencil, Trash2, Search, Loader2 } from "lucide-react";
 import { useState, useEffect, useTransition } from "react";
+import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -23,6 +26,20 @@ interface Category {
   id: string;
   name: string;
   slug: string;
+}
+
+function UploadWarningAlert() {
+  const searchParams = useSearchParams();
+  const uploadWarning = searchParams.get("uploadWarning");
+  const [showWarning, setShowWarning] = useState(!!uploadWarning);
+
+  if (!showWarning || !uploadWarning) return null;
+
+  return (
+    <Alert variant="warning" title="Produk Berhasil Dibuat" onDismiss={() => setShowWarning(false)}>
+      {uploadWarning}. Anda dapat menambahkan foto lagi di halaman edit produk.
+    </Alert>
+  );
 }
 
 export default function AdminProductsPage() {
@@ -103,6 +120,9 @@ export default function AdminProductsPage() {
 
   return (
     <div className="space-y-6">
+      <Suspense fallback={null}>
+        <UploadWarningAlert />
+      </Suspense>
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-burgundy-900">Kelola Produk</h1>

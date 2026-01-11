@@ -31,11 +31,18 @@ function validateImageFile(file: File): { valid: boolean; error?: string } {
   return { valid: true };
 }
 
+function extractStoragePath(publicUrl: string): string | null {
+  const bucketPath = "/storage/v1/object/public/kue/";
+  const index = publicUrl.indexOf(bucketPath);
+  if (index === -1) return null;
+  return publicUrl.substring(index + bucketPath.length);
+}
+
 export async function createProduct(formData: {
   name: string;
   description?: string;
   price?: number | null;
-  category_id: string;
+  category_id?: string | null;
   is_available: boolean;
 }) {
   const supabase = await createClient();
@@ -69,7 +76,7 @@ export async function updateProduct(
     name: string;
     description?: string;
     price?: number | null;
-    category_id: string;
+    category_id?: string | null;
     is_available: boolean;
   }
 ) {
@@ -101,6 +108,11 @@ export async function updateProduct(
 export async function deleteProduct(id: string) {
   const supabase = await createClient();
 
+  const { data: images } = await supabase
+    .from("product_images")
+    .select("image_url")
+    .eq("product_id", id);
+
   const { error: imagesError } = await supabase
     .from("product_images")
     .delete()
@@ -114,6 +126,16 @@ export async function deleteProduct(id: string) {
 
   if (error) {
     return { error: error.message };
+  }
+
+  if (images && images.length > 0) {
+    const storagePaths = images
+      .map((img) => extractStoragePath(img.image_url))
+      .filter((path): path is string => path !== null);
+
+    if (storagePaths.length > 0) {
+      await supabase.storage.from("kue").remove(storagePaths);
+    }
   }
 
   revalidatePath("/admin/produk");
@@ -154,20 +176,33 @@ export async function uploadProductImage(formData: FormData) {
     data: { publicUrl },
   } = supabase.storage.from("kue").getPublicUrl(fileName);
 
+  const { data: maxOrderData } = await supabase
+    .from("product_images")
+    .select("display_order")
+    .eq("product_id", productId)
+    .order("display_order", { ascending: false })
+    .limit(1)
+    .single();
+
+  const nextDisplayOrder = (maxOrderData?.display_order ?? 0) + 1;
+
   if (isPrimary) {
     await supabase
       .from("product_images")
       .update({ is_primary: false })
-      .eq("product_id", productId);
+      .eq("product_id", productId)
+      .eq("is_primary", true);
   }
 
   const { error: dbError } = await supabase.from("product_images").insert({
     product_id: productId,
     image_url: publicUrl,
     is_primary: isPrimary,
+    display_order: nextDisplayOrder,
   });
 
   if (dbError) {
+    await supabase.storage.from("kue").remove([fileName]);
     return { error: dbError.message };
   }
 
@@ -180,6 +215,12 @@ export async function uploadProductImage(formData: FormData) {
 export async function deleteProductImage(imageId: string, productId: string) {
   const supabase = await createClient();
 
+  const { data: imageRecord } = await supabase
+    .from("product_images")
+    .select("image_url")
+    .eq("id", imageId)
+    .single();
+
   const { error } = await supabase
     .from("product_images")
     .delete()
@@ -187,6 +228,13 @@ export async function deleteProductImage(imageId: string, productId: string) {
 
   if (error) {
     return { error: error.message };
+  }
+
+  if (imageRecord?.image_url) {
+    const storagePath = extractStoragePath(imageRecord.image_url);
+    if (storagePath) {
+      await supabase.storage.from("kue").remove([storagePath]);
+    }
   }
 
   revalidatePath(`/admin/produk/${productId}`);

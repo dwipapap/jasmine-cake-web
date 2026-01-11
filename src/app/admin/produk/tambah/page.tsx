@@ -137,7 +137,11 @@ export default function AddProductPage() {
         }
 
         if (failedUploads.length > 0) {
-          setUploadErrors(failedUploads);
+          const successCount = images.length - failedUploads.length;
+          const params = new URLSearchParams();
+          params.set("created", "true");
+          params.set("uploadWarning", `${successCount} foto berhasil, ${failedUploads.length} gagal diupload`);
+          router.push(`/admin/produk?${params.toString()}`);
           return;
         }
       }
