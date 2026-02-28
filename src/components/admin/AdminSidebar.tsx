@@ -9,6 +9,7 @@ import {
   MessageSquare,
   LogOut,
   ChefHat,
+  ImageIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -18,6 +19,7 @@ const SIDEBAR_ITEMS = [
   { href: "/admin/produk", label: "Produk", icon: Package },
   { href: "/admin/kategori", label: "Kategori", icon: Folder },
   { href: "/admin/testimoni", label: "Testimoni", icon: MessageSquare },
+  { href: "/admin/popup", label: "Popup", icon: ImageIcon },
 ];
 
 interface AdminSidebarProps {
