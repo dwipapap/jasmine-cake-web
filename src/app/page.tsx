@@ -1,9 +1,16 @@
-import { HeroSection, CategorySection } from "@/components/home";
+import { HeroSection, CategorySection, PopupBanner } from "@/components/home";
 import { createClient } from "@/lib/supabase/server";
-import type { Category } from "@/lib/supabase/types";
+import type { Category, Popup } from "@/lib/supabase/types";
 
 export default async function HomePage() {
   const supabase = await createClient();
+  const { data: popupData } = await supabase
+    .from("popups")
+    .select("*")
+    .eq("is_active", true)
+    .not("image_url", "is", null)
+    .limit(1)
+    .maybeSingle();
 
   const { data: categoriesData } = await supabase
     .from("categories")
@@ -50,6 +57,7 @@ export default async function HomePage() {
     <>
       <HeroSection />
       <CategorySection categories={categoriesWithCountsAndImages} />
+      {popupData && <PopupBanner popup={popupData as Popup} />}
     </>
   );
 }

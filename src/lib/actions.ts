@@ -412,3 +412,150 @@ export async function createTestimonial(formData: {
 
   return { success: true, data };
 }
+
+export async function getPopup() {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("popups")
+    .select("*")
+    .limit(1)
+    .single();
+
+  if (error && error.code !== "PGRST116") {
+    return { error: error.message };
+  }
+
+  return { data: data || null };
+}
+
+export async function updatePopupSettings(data: {
+  is_active: boolean;
+  link_url?: string | null;
+}) {
+  const supabase = await createClient();
+
+  const { data: existing } = await supabase
+    .from("popups")
+    .select("id")
+    .limit(1)
+    .single();
+
+  const { error } = existing
+    ? await supabase
+        .from("popups")
+        .update({
+          is_active: data.is_active,
+          link_url: data.link_url ?? null,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", existing.id)
+    : await supabase.from("popups").insert({
+        is_active: data.is_active,
+        link_url: data.link_url ?? null,
+      });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin/popup");
+
+  return { success: true };
+}
+
+export async function uploadPopupImage(formData: FormData) {
+  const file = formData.get("file") as File;
+
+  if (!file) {
+    return { error: "File tidak ditemukan" };
+  }
+
+  const validation = validateImageFile(file);
+  if (!validation.valid) {
+    return { error: validation.error };
+  }
+
+  const supabase = await createClient();
+
+  const fileExt = file.name.split(".").pop();
+  const fileName = `popups/${Date.now()}.${fileExt}`;
+
+  const { data: existingPopup } = await supabase
+    .from("popups")
+    .select("id, image_url")
+    .limit(1)
+    .single();
+
+  const { error: uploadError } = await supabase.storage
+    .from("kue")
+    .upload(fileName, file);
+
+  if (uploadError) {
+    return { error: uploadError.message };
+  }
+
+  const {
+    data: { publicUrl },
+  } = supabase.storage.from("kue").getPublicUrl(fileName);
+
+  if (existingPopup?.image_url) {
+    const oldPath = extractStoragePath(existingPopup.image_url);
+    if (oldPath) {
+      await supabase.storage.from("kue").remove([oldPath]);
+    }
+  }
+
+  const { error: dbError } = existingPopup
+    ? await supabase
+        .from("popups")
+        .update({ image_url: publicUrl, updated_at: new Date().toISOString() })
+        .eq("id", existingPopup.id)
+    : await supabase.from("popups").insert({ image_url: publicUrl });
+
+  if (dbError) {
+    await supabase.storage.from("kue").remove([fileName]);
+    return { error: dbError.message };
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin/popup");
+
+  return { success: true, url: publicUrl };
+}
+
+export async function deletePopupImage(popupId: string) {
+  const supabase = await createClient();
+
+  const { data: popup, error: fetchError } = await supabase
+    .from("popups")
+    .select("image_url")
+    .eq("id", popupId)
+    .single();
+
+  if (fetchError) {
+    return { error: fetchError.message };
+  }
+
+  if (popup?.image_url) {
+    const oldPath = extractStoragePath(popup.image_url);
+    if (oldPath) {
+      await supabase.storage.from("kue").remove([oldPath]);
+    }
+  }
+
+  const { error } = await supabase
+    .from("popups")
+    .update({ image_url: null, updated_at: new Date().toISOString() })
+    .eq("id", popupId);
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin/popup");
+
+  return { success: true };
+}
