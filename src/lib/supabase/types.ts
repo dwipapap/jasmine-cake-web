@@ -150,6 +150,33 @@ export interface Database {
           }
         ];
       };
+      popups: {
+        Row: {
+          id: string;
+          image_url: string | null;
+          link_url: string | null;
+          is_active: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          image_url?: string | null;
+          link_url?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          image_url?: string | null;
+          link_url?: string | null;
+          is_active?: boolean;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: Record<string, never>;
     Functions: Record<string, never>;
@@ -162,6 +189,7 @@ export type Category = Database["public"]["Tables"]["categories"]["Row"];
 export type Product = Database["public"]["Tables"]["products"]["Row"];
 export type ProductImage = Database["public"]["Tables"]["product_images"]["Row"];
 export type Testimonial = Database["public"]["Tables"]["testimonials"]["Row"];
+export type Popup = Database["public"]["Tables"]["popups"]["Row"];
 
 export type ProductWithImages = Product & {
   product_images: ProductImage[];
