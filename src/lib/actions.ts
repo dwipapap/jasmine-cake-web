@@ -524,3 +524,38 @@ export async function uploadPopupImage(formData: FormData) {
 
   return { success: true, url: publicUrl };
 }
+
+export async function deletePopupImage(popupId: string) {
+  const supabase = await createClient();
+
+  const { data: popup, error: fetchError } = await supabase
+    .from("popups")
+    .select("image_url")
+    .eq("id", popupId)
+    .single();
+
+  if (fetchError) {
+    return { error: fetchError.message };
+  }
+
+  if (popup?.image_url) {
+    const oldPath = extractStoragePath(popup.image_url);
+    if (oldPath) {
+      await supabase.storage.from("kue").remove([oldPath]);
+    }
+  }
+
+  const { error } = await supabase
+    .from("popups")
+    .update({ image_url: null, updated_at: new Date().toISOString() })
+    .eq("id", popupId);
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  revalidatePath("/");
+  revalidatePath("/admin/popup");
+
+  return { success: true };
+}
