@@ -157,7 +157,6 @@ export interface Database {
           link_url: string | null;
           is_active: boolean;
           created_at: string;
-          updated_at: string;
         };
         Insert: {
           id?: string;
@@ -165,7 +164,6 @@ export interface Database {
           link_url?: string | null;
           is_active?: boolean;
           created_at?: string;
-          updated_at?: string;
         };
         Update: {
           id?: string;
@@ -173,7 +171,6 @@ export interface Database {
           link_url?: string | null;
           is_active?: boolean;
           created_at?: string;
-          updated_at?: string;
         };
         Relationships: [];
       };
