@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
 import type { Popup } from "@/lib/supabase/types";
@@ -11,13 +11,9 @@ interface PopupBannerProps {
 
 export function PopupBanner({ popup }: PopupBannerProps) {
   const [isOpen, setIsOpen] = useState(true);
-  const [isMounted, setIsMounted] = useState(false);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
-  if (!isOpen || !isMounted || !popup.image_url) return null;
+  if (!isOpen || !popup.image_url) return null;
 
   return (
     <div
