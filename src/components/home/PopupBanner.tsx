@@ -3,8 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Popup } from "@/lib/supabase/types";
+import type { Popup } from "@/lib/supabase/types";
 
 interface PopupBannerProps {
   popup: Popup;
