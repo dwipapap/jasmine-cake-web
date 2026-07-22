@@ -58,9 +58,9 @@ export default function TentangPage() {
               Cerita Dapur Kami
             </span>
 
-            <h1 className="mb-6 font-serif text-4xl font-bold leading-tight text-burgundy-900 md:text-6xl lg:text-7xl">
+            <h1 className="mb-6 font-serif text-4xl font-bold leading-tight text-primary md:text-6xl lg:text-7xl">
               Lebih dari Sekadar <br className="hidden md:block" />
-              <span className="italic text-burgundy-600">Kue Rumahan</span>
+              <span className="italic text-primary/80">Kue Rumahan</span>
             </h1>
 
             <p className="mx-auto max-w-2xl text-lg leading-relaxed text-burgundy-800/70 md:text-xl">
@@ -83,7 +83,7 @@ export default function TentangPage() {
                     <Icon className="h-5 w-5 sm:h-7 sm:w-7" />
                   </div>
 
-                  <h3 className="mb-2 font-serif text-base font-bold text-burgundy-900 sm:mb-3 sm:text-xl">
+                  <h3 className="mb-2 font-serif text-base font-bold text-primary sm:mb-3 sm:text-xl">
                     {feature.title}
                   </h3>
 
@@ -102,9 +102,9 @@ export default function TentangPage() {
               <div className="relative h-full overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-burgundy-50 sm:rounded-[2.5rem] sm:p-8 md:p-12 lg:p-16">
                 <Quote className="absolute right-4 top-4 h-16 w-16 rotate-180 fill-burgundy-50 text-burgundy-50 opacity-50 sm:right-8 sm:top-8 sm:h-24 sm:w-24" />
 
-                <h2 className="relative mb-5 font-serif text-2xl font-bold text-burgundy-900 sm:mb-8 sm:text-3xl md:text-4xl">
+                <h2 className="relative mb-5 font-serif text-2xl font-bold text-primary sm:mb-8 sm:text-3xl md:text-4xl">
                   Bermula dari Hobi, <br />
-                  <span className="text-burgundy-600 italic">Tumbuh dengan Hati</span>
+                  <span className="text-primary/80 italic">Tumbuh dengan Hati</span>
                 </h2>
 
                 <div className="relative space-y-4 text-base leading-relaxed text-burgundy-800/80 sm:space-y-6 sm:text-lg">
@@ -139,7 +139,7 @@ export default function TentangPage() {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-burgundy-100 text-burgundy-700">
                   <MapPin className="h-6 w-6" />
                 </div>
-                <h3 className="mb-2 font-serif text-xl font-bold text-burgundy-900">Lokasi Dapur</h3>
+                <h3 className="mb-2 font-serif text-xl font-bold text-primary">Lokasi Dapur</h3>
                 <p className="text-burgundy-700/80">
                   Pekanbaru, Riau<br />
                   <span className="text-sm text-burgundy-500 mt-1 block">Melayani pengiriman area dalam kota & sekitarnya</span>
@@ -167,7 +167,7 @@ export default function TentangPage() {
                 <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-burgundy-100 text-burgundy-700">
                   <Phone className="h-6 w-6" />
                 </div>
-                <h3 className="mb-2 font-serif text-xl font-bold text-burgundy-900">Kontak Langsung</h3>
+                <h3 className="mb-2 font-serif text-xl font-bold text-primary">Kontak Langsung</h3>
                 <p className="mb-6 text-burgundy-700/80">
                   Konsultasi pesanan atau tanya harga? Chat kami langsung.
                 </p>

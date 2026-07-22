@@ -67,7 +67,7 @@ export function TestimonialCard({ testimonial, featured = false }: TestimonialCa
 
           <div className="relative flex flex-col p-3 sm:p-6">
             <div className="mb-2 sm:mb-4">
-              <h3 className="font-serif text-xs sm:text-xl font-bold leading-tight text-burgundy-900 group-hover:text-burgundy-700 transition-colors line-clamp-3 sm:line-clamp-none">
+              <h3 className="font-serif text-xs sm:text-xl font-bold leading-tight text-primary group-hover:text-primary/80 transition-colors line-clamp-3 sm:line-clamp-none">
                 &quot;{testimonial.message}&quot;
               </h3>
             </div>

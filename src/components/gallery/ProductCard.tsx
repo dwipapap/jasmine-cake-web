@@ -63,7 +63,7 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
 
         <div className="absolute bottom-0 left-0 z-10 w-full p-3 sm:p-6">
            <div className="flex flex-col gap-1 sm:gap-2">
-              <h3 className={`text-sm sm:text-xl font-serif font-bold tracking-tight transition-colors duration-300 line-clamp-2 ${hasImage ? 'text-white' : 'text-burgundy-950 group-hover:text-burgundy-700'}`}>
+              <h3 className={`text-sm sm:text-xl font-serif font-bold tracking-tight transition-colors duration-300 line-clamp-2 ${hasImage ? 'text-white' : 'text-primary group-hover:text-primary/80'}`}>
                 {product.name}
               </h3>
 

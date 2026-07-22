@@ -31,7 +31,7 @@ export function ProductInfo({ product }: ProductInfoProps) {
         </Link>
       )}
 
-      <h1 className="text-3xl font-bold text-burgundy-900 md:text-4xl">
+      <h1 className="text-3xl font-bold text-primary md:text-4xl">
         {product.name}
       </h1>
 

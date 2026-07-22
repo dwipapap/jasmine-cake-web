@@ -1,6 +1,6 @@
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
-import { AlertCircle, AlertTriangle, CheckCircle, Info, X } from "lucide-react"
+import { AlertCircle, AlertTriangle, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -9,28 +9,19 @@ const alertVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-background text-foreground",
-        destructive:
-          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
         error: "border-burgundy-200 bg-burgundy-50 text-burgundy-900 [&>svg]:text-burgundy-600",
         warning: "border-gold/30 bg-gold/10 text-burgundy-900 [&>svg]:text-gold",
-        success: "border-green-200 bg-green-50 text-green-900 [&>svg]:text-green-600",
-        info: "border-blue-200 bg-blue-50 text-blue-900 [&>svg]:text-blue-600",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "error",
     },
   }
 )
 
 const icons = {
-  default: Info,
-  destructive: AlertCircle,
   error: AlertCircle,
   warning: AlertTriangle,
-  success: CheckCircle,
-  info: Info,
 }
 
 interface AlertProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof alertVariants> {
@@ -41,7 +32,7 @@ interface AlertProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
   ({ className, variant, title, icon, children, onDismiss, ...props }, ref) => {
-    const IconComponent = icon || icons[variant || "default"]
+    const IconComponent = icon || icons[variant || "error"]
 
     return (
       <div

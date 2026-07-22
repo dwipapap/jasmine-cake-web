@@ -52,7 +52,7 @@ export default async function TestimoniPage() {
             Testimoni Pelanggan
           </span>
 
-          <h1 className="mb-6 font-serif text-4xl font-bold text-burgundy-900 md:text-5xl lg:text-6xl">
+          <h1 className="mb-6 font-serif text-4xl font-bold text-primary md:text-5xl lg:text-6xl">
             Apa Kata Mereka?
           </h1>
 
@@ -64,7 +64,7 @@ export default async function TestimoniPage() {
 
         {featuredTestimonials.length > 0 && (
           <section className="mb-16">
-            <h2 className="mb-8 font-serif text-2xl font-bold text-burgundy-900 md:text-3xl">
+            <h2 className="mb-8 font-serif text-2xl font-bold text-primary md:text-3xl">
               Testimoni Pilihan
             </h2>
             <div className="grid gap-4 grid-cols-2 lg:grid-cols-3">
@@ -81,7 +81,7 @@ export default async function TestimoniPage() {
 
         {regularTestimonials.length > 0 && (
           <section className="mb-16">
-            <h2 className="mb-8 font-serif text-2xl font-bold text-burgundy-900 md:text-3xl">
+            <h2 className="mb-8 font-serif text-2xl font-bold text-primary md:text-3xl">
               Testimoni Lainnya
             </h2>
             <div className="grid gap-4 grid-cols-2 lg:grid-cols-3">
@@ -100,7 +100,7 @@ export default async function TestimoniPage() {
             <div className="mb-6 rounded-full bg-burgundy-50 p-6">
               <Quote className="h-12 w-12 text-burgundy-300" />
             </div>
-            <h3 className="mb-2 font-serif text-xl font-bold text-burgundy-800">
+            <h3 className="mb-2 font-serif text-xl font-bold text-primary">
               Belum Ada Testimoni
             </h3>
             <p className="mb-8 max-w-md text-burgundy-600">

@@ -65,7 +65,7 @@ export function ProductGallery({ products }: ProductGalleryProps) {
               </div>
               <Link href={`/produk/${product.id}`}>
                 <div className="p-4">
-                  <h3 className="font-semibold text-burgundy-800 group-hover:text-burgundy-600">
+                  <h3 className="font-semibold text-primary group-hover:text-primary/80">
                     {product.name}
                   </h3>
                   {product.categories && (

@@ -1,14 +1,20 @@
 import type { Metadata } from "next";
-import { Unna } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next";
+import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import { Navbar, Footer, WhatsAppButton } from "@/components/layout";
 import "./globals.css";
 
-const unna = Unna({
-  variable: "--font-unna",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair-display",
   subsets: ["latin"],
   weight: ["400", "700"],
   style: ["normal", "italic"],
+  display: "swap",
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -49,15 +55,14 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body
-        className={`${unna.variable} font-sans antialiased`}
+        className={`${playfairDisplay.variable} ${plusJakartaSans.variable} font-sans antialiased`}
       >
         <div className="flex min-h-screen flex-col">
           <Navbar />
-          <main className="flex-1 pb-20 md:pb-0">{children}</main>
+          <main className="flex-1 pb-24 sm:pb-0 sm:pt-24">{children}</main>
           <Footer />
         </div>
         <WhatsAppButton floating />
-        <Analytics />
       </body>
     </html>
   );

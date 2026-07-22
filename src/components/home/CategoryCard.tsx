@@ -72,7 +72,7 @@ export function CategoryCard({
 
         <div className="absolute bottom-0 left-0 z-10 w-full p-3 sm:p-6">
            <div className="flex flex-col gap-1 sm:gap-3">
-              <h3 className={`text-sm sm:text-2xl font-serif font-bold tracking-tight transition-colors duration-300 ${hasImage ? 'text-white' : 'text-burgundy-950 group-hover:text-burgundy-700'}`}>
+              <h3 className={`text-sm sm:text-2xl font-serif font-bold tracking-tight transition-colors duration-300 ${hasImage ? 'text-white' : 'text-primary group-hover:text-primary/80'}`}>
                 {name}
               </h3>
 

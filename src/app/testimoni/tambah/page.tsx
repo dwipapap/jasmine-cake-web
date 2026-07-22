@@ -140,7 +140,7 @@ export default function TambahTestimoniPage() {
                   </div>
                 </div>
               </div>
-              <h1 className="mb-3 font-serif text-3xl font-bold text-burgundy-900">
+              <h1 className="mb-3 font-serif text-3xl font-bold text-primary">
                 Terima Kasih!
               </h1>
               <p className="mb-8 text-lg text-burgundy-700/80 leading-relaxed">
@@ -172,7 +172,7 @@ export default function TambahTestimoniPage() {
                 <span className="mb-4 inline-block rounded-full bg-burgundy-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-burgundy-700 shadow-sm">
                   Formulir Testimoni
                 </span>
-                <h1 className="mb-4 font-serif text-3xl font-bold text-burgundy-900 md:text-4xl lg:text-5xl">
+                <h1 className="mb-4 font-serif text-3xl font-bold text-primary md:text-4xl lg:text-5xl">
                   Bagikan Cerita Anda
                 </h1>
                 <p className="mx-auto max-w-md text-lg text-burgundy-700/80">

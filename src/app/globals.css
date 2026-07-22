@@ -36,7 +36,7 @@
   --card: var(--cream-50);
   --card-foreground: var(--burgundy-800);
   
-  --primary: var(--burgundy-600);
+  --primary: #C2005F;
   --primary-foreground: var(--cream-50);
   
   --secondary: var(--cream-300);
@@ -110,19 +110,11 @@
   --color-warm-gray: var(--warm-gray);
   
   /* Fonts */
-  --font-sans: var(--font-unna), Georgia, serif;
-  --font-serif: var(--font-unna), Georgia, serif;
+  --font-sans: var(--font-plus-jakarta-sans), system-ui, sans-serif;
+  --font-serif: var(--font-playfair-display), Georgia, serif;
 }
 
 /* Scrollbar hide utility */
-.scrollbar-hide::-webkit-scrollbar {
-    display: none;
-}
-.scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
-
 .scrollbar-hide::-webkit-scrollbar {
     display: none;
 }

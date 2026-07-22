@@ -77,7 +77,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
             <span className="mb-3 inline-block rounded-full bg-burgundy-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-burgundy-700">
               Kategori Pilihan
             </span>
-            <h1 className="mb-6 font-serif text-4xl font-bold text-burgundy-900 md:text-5xl lg:text-6xl">
+            <h1 className="mb-6 font-serif text-4xl font-bold text-primary md:text-5xl lg:text-6xl">
               {category.name}
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-burgundy-700/80">

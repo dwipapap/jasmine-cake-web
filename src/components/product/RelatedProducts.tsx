@@ -22,7 +22,7 @@ export function RelatedProducts({
 
   return (
     <section className="mt-16">
-      <h2 className="mb-6 text-2xl font-bold text-burgundy-900">
+      <h2 className="mb-6 text-2xl font-bold text-primary">
         Produk Lainnya
       </h2>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
@@ -51,7 +51,7 @@ export function RelatedProducts({
                   <div className="absolute inset-0 bg-burgundy-900/0 transition-colors group-hover:bg-burgundy-900/10" />
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-burgundy-800 group-hover:text-burgundy-600">
+                  <h3 className="font-semibold text-primary group-hover:text-primary/80">
                     {product.name}
                   </h3>
                   {product.categories && (

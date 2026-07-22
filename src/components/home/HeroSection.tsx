@@ -36,9 +36,9 @@ export function HeroSection() {
         </div>
 
         <div className="mb-8 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>
-          <h1 className="font-serif text-5xl font-medium leading-tight text-burgundy-900 md:text-7xl lg:text-8xl">
+          <h1 className="font-serif text-5xl font-medium leading-tight text-primary md:text-7xl lg:text-8xl">
             <span className="block drop-shadow-sm">Jasmine Cake</span>
-            <span className="mt-2 block font-light italic text-burgundy-700/80 md:mt-4">
+            <span className="mt-2 block font-light italic text-primary/80 md:mt-4">
               & Cookies
             </span>
           </h1>

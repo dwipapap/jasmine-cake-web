@@ -33,8 +33,8 @@ export function CategorySection({ categories }: CategorySectionProps) {
             <div className="h-px w-12 bg-burgundy-200" />
           </div>
           
-          <h2 className="mb-6 text-4xl md:text-5xl lg:text-6xl font-bold text-burgundy-950 tracking-tight">
-            Kategori <span className="font-serif italic text-burgundy-700">Spesial</span>
+          <h2 className="mb-6 text-4xl md:text-5xl lg:text-6xl font-bold text-primary tracking-tight">
+            Kategori <span className="font-serif italic text-primary/80">Spesial</span>
           </h2>
           
           <p className="text-lg text-burgundy-700/70 leading-relaxed font-light">
